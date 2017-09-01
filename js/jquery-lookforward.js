@@ -482,40 +482,49 @@ var LookForward = function () {
     _classCallCheck(this, LookForward);
 
     this.options = assign({}, defaults, options);
-    var id = (0, _util.getUniqId)();
-    var ele = typeof selector === 'string' ? document.querySelector(selector) : selector;
-    this.id = id;
+    this.id = (0, _util.getUniqId)();
+    var eles = typeof selector === 'string' ? document.querySelectorAll(selector) : selector;
     this.currentUrl = location.href;
-    if (!ele) {
+    if (!eles) {
       return;
     }
-    ele.addEventListener('click', function (event) {
-      event.preventDefault();
-      var href = ele.getAttribute('href');
-      (0, _util.fetch)(href).then(function (doc) {
-        var html = doc.querySelector(_this.options.scrapedArea);
-        if (!html) {
-          return;
-        }
-        var build = _this.buildHtml(html.innerHTML, id);
-        var body = document.querySelector('body');
-        body.style.overflow = 'hidden';
-        (0, _util.append)(body, build);
-        var closeBtn = document.querySelector('#' + id + ' .js-lookforward-close-btn');
-        closeBtn.addEventListener('click', function () {
-          _this.removeModal();
-        });
-        if (window.history && _this.options.useHistoryApi) {
-          window.history.replaceState({}, "", href);
-        }
-      });
+    [].forEach.call(eles, function (ele) {
+      _this.addClickEvent(ele);
     });
   }
 
   _createClass(LookForward, [{
+    key: 'addClickEvent',
+    value: function addClickEvent(ele) {
+      var _this2 = this;
+
+      var id = this.id;
+      ele.addEventListener('click', function (event) {
+        event.preventDefault();
+        var href = ele.getAttribute('href');
+        (0, _util.fetch)(href).then(function (doc) {
+          var html = doc.querySelector(_this2.options.scrapedArea);
+          if (!html) {
+            return;
+          }
+          var build = _this2.buildHtml(html.innerHTML, id);
+          var body = document.querySelector('body');
+          body.style.overflow = 'hidden';
+          (0, _util.append)(body, build);
+          var closeBtn = document.querySelector('#' + id + ' .js-lookforward-close-btn');
+          closeBtn.addEventListener('click', function () {
+            _this2.removeModal();
+          });
+          if (window.history && _this2.options.useHistoryApi) {
+            window.history.replaceState({}, "", href);
+          }
+        });
+      });
+    }
+  }, {
     key: 'removeModal',
     value: function removeModal() {
-      var _this2 = this;
+      var _this3 = this;
 
       var classNames = this.options.classNames;
       var modal = document.querySelector('#' + this.id);
@@ -523,9 +532,9 @@ var LookForward = function () {
       (0, _util.addClass)(modal, classNames.LookForwardClose);
       setTimeout(function () {
         (0, _util.remove)(modal);
-        body.style.overflow = 'hidden';
-        if (window.history && _this2.options.useHistoryApi) {
-          window.history.replaceState({}, "", _this2.currentUrl);
+        body.style.overflow = '';
+        if (window.history && _this3.options.useHistoryApi) {
+          window.history.replaceState({}, "", _this3.currentUrl);
         }
       }, 300);
     }

@@ -20,13 +20,19 @@ export default class LookForward {
 
   constructor(selector, options = {}) {
     this.options = assign({}, defaults, options);
-    const id = getUniqId();
-    const ele = typeof selector === 'string' ? document.querySelector(selector) : selector;
-    this.id = id;
+    this.id = getUniqId();
+    const eles = typeof selector === 'string' ? document.querySelectorAll(selector) : selector;
     this.currentUrl = location.href;
-    if (!ele) {
+    if (!eles) {
       return;
     }
+    [].forEach.call(eles, (ele) => {
+      this.addClickEvent(ele);
+    });
+  }
+
+  addClickEvent (ele) {
+    const id = this.id;
     ele.addEventListener('click', (event) => {
       event.preventDefault();
       const href = ele.getAttribute('href');
@@ -57,7 +63,7 @@ export default class LookForward {
     addClass(modal, classNames.LookForwardClose);
     setTimeout(() => {
       remove(modal);
-      body.style.overflow = 'hidden';
+      body.style.overflow = '';
       if (window.history && this.options.useHistoryApi) {
         window.history.replaceState({}, "" , this.currentUrl);
       }
