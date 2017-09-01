@@ -42,17 +42,32 @@ export default class LookForward {
           return;
         }
         const build = this.buildHtml(html.innerHTML, id);
-        const body = document.querySelector('body');
-        body.style.overflow = 'hidden';
-        append(body, build);
-        const closeBtn = document.querySelector(`#${id} .js-lookforward-close-btn`);
-        closeBtn.addEventListener('click', () => {
-          this.removeModal();
-        });
+        this.addModal(build);
         if (window.history && this.options.useHistoryApi) {
-          window.history.replaceState({}, "" , href);
+          window.history.pushState({href}, "" , href);
+          window.addEventListener('popstate', (event) => {
+            if (event.state && event.state.href === href) {
+              this.addModal(build)
+            } else {
+              this.removeModal();
+            }
+          });
         }
       })
+    });
+  }
+
+  addModal(build) {
+    const id = this.id;
+    const body = document.querySelector('body');
+    body.style.overflow = 'hidden';
+    append(body, build);
+    const closeBtn = document.querySelector(`#${id} .js-lookforward-close-btn`);
+    closeBtn.addEventListener('click', () => {
+      if (window.history && this.options.useHistoryApi) {
+        window.history.back();
+      }
+      this.removeModal();
     });
   }
 
@@ -60,13 +75,13 @@ export default class LookForward {
     const classNames = this.options.classNames;
     const modal = document.querySelector(`#${this.id}`);
     const body = document.querySelector('body');
+    if (!modal) {
+      return;
+    }
     addClass(modal, classNames.LookForwardClose);
     setTimeout(() => {
       remove(modal);
       body.style.overflow = '';
-      if (window.history && this.options.useHistoryApi) {
-        window.history.replaceState({}, "" , this.currentUrl);
-      }
     }, 300);
   }
 

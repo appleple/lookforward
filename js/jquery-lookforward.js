@@ -508,34 +508,50 @@ var LookForward = function () {
             return;
           }
           var build = _this2.buildHtml(html.innerHTML, id);
-          var body = document.querySelector('body');
-          body.style.overflow = 'hidden';
-          (0, _util.append)(body, build);
-          var closeBtn = document.querySelector('#' + id + ' .js-lookforward-close-btn');
-          closeBtn.addEventListener('click', function () {
-            _this2.removeModal();
-          });
+          _this2.addModal(build);
           if (window.history && _this2.options.useHistoryApi) {
-            window.history.replaceState({}, "", href);
+            window.history.pushState({ href: href }, "", href);
+            window.addEventListener('popstate', function (event) {
+              if (event.state && event.state.href === href) {
+                _this2.addModal(build);
+              } else {
+                _this2.removeModal();
+              }
+            });
           }
         });
       });
     }
   }, {
-    key: 'removeModal',
-    value: function removeModal() {
+    key: 'addModal',
+    value: function addModal(build) {
       var _this3 = this;
 
+      var id = this.id;
+      var body = document.querySelector('body');
+      body.style.overflow = 'hidden';
+      (0, _util.append)(body, build);
+      var closeBtn = document.querySelector('#' + id + ' .js-lookforward-close-btn');
+      closeBtn.addEventListener('click', function () {
+        if (window.history && _this3.options.useHistoryApi) {
+          window.history.back();
+        }
+        _this3.removeModal();
+      });
+    }
+  }, {
+    key: 'removeModal',
+    value: function removeModal() {
       var classNames = this.options.classNames;
       var modal = document.querySelector('#' + this.id);
       var body = document.querySelector('body');
+      if (!modal) {
+        return;
+      }
       (0, _util.addClass)(modal, classNames.LookForwardClose);
       setTimeout(function () {
         (0, _util.remove)(modal);
         body.style.overflow = '';
-        if (window.history && _this3.options.useHistoryApi) {
-          window.history.replaceState({}, "", _this3.currentUrl);
-        }
       }, 300);
     }
   }, {
