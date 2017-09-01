@@ -444,7 +444,8 @@ var defaults = {
     LookForwardHeader: 'lookforward-header',
     LookForwardFooter: 'lookforward-footer'
   },
-  scrapedArea: '.js-lookforward-target'
+  scrapedArea: '.js-lookforward-target',
+  useHistoryApi: true
 };
 
 var LookForward = function () {
@@ -479,7 +480,7 @@ var LookForward = function () {
         closeBtn.addEventListener('click', function () {
           _this.removeModal();
         });
-        if (window.history) {
+        if (window.history && _this.options.useHistoryApi) {
           window.history.replaceState({}, "", href);
         }
       });
@@ -498,7 +499,7 @@ var LookForward = function () {
       setTimeout(function () {
         (0, _util.remove)(modal);
         body.style.overflow = 'hidden';
-        if (window.history) {
+        if (window.history && _this2.options.useHistoryApi) {
           window.history.replaceState({}, "", _this2.currentUrl);
         }
       }, 300);

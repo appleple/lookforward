@@ -12,7 +12,8 @@ const defaults = {
     LookForwardHeader: 'lookforward-header',
     LookForwardFooter: 'lookforward-footer'
   },
-  scrapedArea: '.js-lookforward-target'
+  scrapedArea: '.js-lookforward-target',
+  useHistoryApi: true
 }
 
 export default class LookForward {
@@ -42,7 +43,7 @@ export default class LookForward {
         closeBtn.addEventListener('click', () => {
           this.removeModal();
         });
-        if (window.history) {
+        if (window.history && this.options.useHistoryApi) {
           window.history.replaceState({}, "" , href);
         }
       })
@@ -57,7 +58,7 @@ export default class LookForward {
     setTimeout(() => {
       remove(modal);
       body.style.overflow = 'hidden';
-      if (window.history) {
+      if (window.history && this.options.useHistoryApi) {
         window.history.replaceState({}, "" , this.currentUrl);
       }
     }, 300);
