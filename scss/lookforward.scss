@@ -51,7 +51,9 @@ $modal-bg-color: #333;
 }
 
 .lookforward-inner {
-  max-width: 940px;
+  max-width: 960px;
+  padding-right: 10px;
+  padding-left: 10px;
   margin: 0 auto;
   animation-timing-function: $animation-function;
 	animation-duration: $animation-speed;
