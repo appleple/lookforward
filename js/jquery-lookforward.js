@@ -469,7 +469,7 @@ var defaults = {
     LookForwardHeader: 'lookforward-header',
     LookForwardFooter: 'lookforward-footer'
   },
-  scrapedArea: '.js-lookforward-target',
+  scrapedArea: 'body',
   useHistoryApi: true
 };
 

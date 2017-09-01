@@ -44,9 +44,6 @@
 }
 
 .lookforward-inner {
-  max-width: 960px;
-  padding: 0 15px;
-  margin: 0 auto;
   animation-timing-function: ease-out;
   animation-duration: 0.3s;
   animation-name: lookforward-inner;
@@ -72,14 +69,6 @@
   -ms-transform: translate(0, 100px);
   -o-transform: translate(0, 100px);
   transform: translate(0, 100px);
-}
-
-.lookforward-header {
-  padding: 40px;
-}
-
-.lookforward-footer {
-  padding: 40px;
 }
 
 .lookforward-close-btn {
