@@ -45,8 +45,7 @@
 
 .lookforward-inner {
   max-width: 960px;
-  padding-right: 10px;
-  padding-left: 10px;
+  padding: 0 15px;
   margin: 0 auto;
   animation-timing-function: ease-out;
   animation-duration: 0.3s;
@@ -76,18 +75,18 @@
 }
 
 .lookforward-header {
-  padding: 20px;
+  padding: 40px;
 }
 
 .lookforward-footer {
-  padding: 20px;
+  padding: 40px;
 }
 
 .lookforward-close-btn {
   position: fixed;
   z-index: 2;
-  top: 20px;
-  left: 20px;
+  top: 15px;
+  left: 15px;
   display: block;
   width: 52px;
   height: 52px;
