@@ -9,7 +9,8 @@ const defaults = {
     LookForwardInner: 'lookforward-inner',
     LookForwardClose: 'lookforward-close',
     LookForwardCloseBtn: 'lookforward-close-btn',
-    LookForwardHeader: 'lookforward-header'
+    LookForwardHeader: 'lookforward-header',
+    LookForwardFooter: 'lookforward-footer'
   },
   scrapedArea: '.js-lookforward-target'
 }
@@ -72,6 +73,8 @@ export default class LookForward {
           </div>
           <div class="${classNames.LookForwardInner}">
             ${html}
+          </div>
+          <div class="${classNames.LookForwardFooter}">
           </div>
         </div>
       </div>
