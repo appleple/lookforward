@@ -29,6 +29,15 @@ export default class LookForward {
     [].forEach.call(eles, (ele) => {
       this.addClickEvent(ele);
     });
+    if (window.history && this.options.useHistoryApi) {
+      window.addEventListener('popstate', (event) => {
+        if (event.state && event.state.pushed) {
+          this.addModal(event.state.html)
+        } else {
+          this.removeModal();
+        }
+      });
+    }
   }
 
   addClickEvent (ele) {
@@ -37,21 +46,14 @@ export default class LookForward {
       event.preventDefault();
       const href = ele.getAttribute('href');
       fetch(href).then((doc) => {
-        const html = doc.querySelector(this.options.scrapedArea);
-        if (!html) {
+        const target = doc.querySelector(this.options.scrapedArea);
+        if (!target) {
           return;
         }
-        const build = this.buildHtml(html.innerHTML, id);
-        this.addModal(build);
+        const html = this.buildHtml(target.innerHTML, id);
+        this.addModal(html);
         if (window.history && this.options.useHistoryApi) {
-          window.history.pushState({pushed: true}, "" , href);
-          window.addEventListener('popstate', (event) => {
-            if (event.state && event.state.pushed) {
-              this.addModal(build)
-            } else {
-              this.removeModal();
-            }
-          });
+          window.history.pushState({pushed: true, html}, "" , href);
         }
       })
     });

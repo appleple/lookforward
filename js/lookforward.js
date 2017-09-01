@@ -466,6 +466,15 @@ var LookForward = function () {
     [].forEach.call(eles, function (ele) {
       _this.addClickEvent(ele);
     });
+    if (window.history && this.options.useHistoryApi) {
+      window.addEventListener('popstate', function (event) {
+        if (event.state && event.state.pushed) {
+          _this.addModal(event.state.html);
+        } else {
+          _this.removeModal();
+        }
+      });
+    }
   }
 
   _createClass(LookForward, [{
@@ -478,21 +487,14 @@ var LookForward = function () {
         event.preventDefault();
         var href = ele.getAttribute('href');
         (0, _util.fetch)(href).then(function (doc) {
-          var html = doc.querySelector(_this2.options.scrapedArea);
-          if (!html) {
+          var target = doc.querySelector(_this2.options.scrapedArea);
+          if (!target) {
             return;
           }
-          var build = _this2.buildHtml(html.innerHTML, id);
-          _this2.addModal(build);
+          var html = _this2.buildHtml(target.innerHTML, id);
+          _this2.addModal(html);
           if (window.history && _this2.options.useHistoryApi) {
-            window.history.pushState({ pushed: true }, "", href);
-            window.addEventListener('popstate', function (event) {
-              if (event.state && event.state.pushed) {
-                _this2.addModal(build);
-              } else {
-                _this2.removeModal();
-              }
-            });
+            window.history.pushState({ pushed: true, html: html }, "", href);
           }
         });
       });
