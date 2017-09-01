@@ -44,9 +44,9 @@ export default class LookForward {
         const build = this.buildHtml(html.innerHTML, id);
         this.addModal(build);
         if (window.history && this.options.useHistoryApi) {
-          window.history.pushState({href}, "" , href);
+          window.history.pushState({pushed: true}, "" , href);
           window.addEventListener('popstate', (event) => {
-            if (event.state && event.state.href === href) {
+            if (event.state && event.state.pushed) {
               this.addModal(build)
             } else {
               this.removeModal();
