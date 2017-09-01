@@ -463,7 +463,10 @@ var defaults = {
   classNames: {
     LookForward: 'lookforward',
     LookForwardBody: 'lookforward-body',
-    LookForwardModalDismiss: 'lookforward-dismiss'
+    LookForwardInner: 'lookforward-inner',
+    LookForwardClose: 'lookforward-close',
+    LookForwardCloseBtn: 'lookforward-close-btn',
+    LookForwardHeader: 'lookforward-header'
   },
   scrapedArea: '.js-lookforward-target'
 };
@@ -477,8 +480,10 @@ var LookForward = function () {
     _classCallCheck(this, LookForward);
 
     this.options = assign({}, defaults, options);
-    this.id = (0, _util.getUniqId)();
+    var id = (0, _util.getUniqId)();
     var ele = typeof selector === 'string' ? document.querySelector(selector) : selector;
+    this.id = id;
+    this.currentUrl = location.href;
     if (!ele) {
       return;
     }
@@ -490,18 +495,43 @@ var LookForward = function () {
         if (!html) {
           return;
         }
-        var build = _this.buildHtml(html.innerHTML);
+        var build = _this.buildHtml(html.innerHTML, id);
         var body = document.querySelector('body');
+        body.style.overflow = 'hidden';
         (0, _util.append)(body, build);
+        var closeBtn = document.querySelector('#' + id + ' .js-lookforward-close-btn');
+        closeBtn.addEventListener('click', function () {
+          _this.removeModal();
+        });
+        if (window.history) {
+          window.history.replaceState({}, "", href);
+        }
       });
     });
   }
 
   _createClass(LookForward, [{
-    key: 'buildHtml',
-    value: function buildHtml(html) {
+    key: 'removeModal',
+    value: function removeModal() {
+      var _this2 = this;
+
       var classNames = this.options.classNames;
-      return '\n      <div class="' + classNames.LookForward + '">\n        <div class="' + classNames.LookForwardBody + '">\n          ' + html + '\n        </div>\n      </div>\n    ';
+      var modal = document.querySelector('#' + this.id);
+      var body = document.querySelector('body');
+      (0, _util.addClass)(modal, classNames.LookForwardClose);
+      setTimeout(function () {
+        (0, _util.remove)(modal);
+        body.style.overflow = 'hidden';
+        if (window.history) {
+          window.history.replaceState({}, "", _this2.currentUrl);
+        }
+      }, 300);
+    }
+  }, {
+    key: 'buildHtml',
+    value: function buildHtml(html, id) {
+      var classNames = this.options.classNames;
+      return '\n      <div class="' + classNames.LookForward + '" id="' + id + '">\n        <div class="' + classNames.LookForwardBody + '">\n          <div class="' + classNames.LookForwardHeader + '">\n            <button class="' + classNames.LookForwardCloseBtn + ' js-lookforward-close-btn"></button>\n          </div>\n          <div class="' + classNames.LookForwardInner + '">\n            ' + html + '\n          </div>\n        </div>\n      </div>\n    ';
     }
   }]);
 
@@ -528,7 +558,6 @@ var fetch = exports.fetch = function fetch(url) {
   return new Promise(function (resolve, reject) {
     var xhr = new XMLHttpRequest();
     xhr.onload = function () {
-      console.log(xhr.response);
       resolve(xhr.response);
     };
     xhr.onerror = function () {
@@ -548,6 +577,20 @@ var append = exports.append = function append(element, string) {
 
 var getUniqId = exports.getUniqId = function getUniqId() {
   return (Date.now().toString(36) + Math.random().toString(36).substr(2, 5)).toUpperCase();
+};
+
+var remove = exports.remove = function remove(element) {
+  if (element && element.parentNode) {
+    element.parentNode.removeChild(element);
+  }
+};
+
+var addClass = exports.addClass = function addClass(element, className) {
+  if (element.classList) {
+    element.classList.add(className);
+  } else {
+    element.className += " " + className;
+  }
 };
 
 },{"es6-promise-polyfill":2}]},{},[3]);
