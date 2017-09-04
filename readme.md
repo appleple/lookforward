@@ -4,17 +4,13 @@
 [![npm download](http://img.shields.io/npm/dm/lookforward.svg)](https://www.npmjs.com/package/lookforward)
 [![GitHub license](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://raw.githubusercontent.com/appleple/lookforward/master/LICENSE)
 
-The most easy to use responsive image viwer especially for mobile devices
+It supports simple page transitions using HistoryAPI
 
 See [https://appleple.github.io/lookforward/](https://appleple.github.io/lookforward/) for complete docs and demos<br/>
 If you are Japasese, See here [https://www.appleple.com/blog/javascript/lookforward-js.html](https://www.appleple.com/blog/javascript/lookforward-js.html) instead.
 
 ## Feature
-- Intuitive gestures such as pinch-in/pinch-out/drag/swipe
-- Use Accelerometer to move images
-- Accessible from keyboards and screen-readers
-- Show pictures via URL hash
-- Can make photo groups
+
 
 ## Installation
 - [npm](https://www.npmjs.com/package/lookforward)
@@ -51,10 +47,21 @@ $(function(){
 });
 ```
 
-### Basic Standalone Usage
-
 
 ### Option
+{
+  classNames: {
+    LookForward: 'lookforward',
+    LookForwardBody: 'lookforward-body',
+    LookForwardInner: 'lookforward-inner',
+    LookForwardClose: 'lookforward-close',
+    LookForwardCloseBtn: 'lookforward-close-btn',
+    LookForwardHeader: 'lookforward-header',
+    LookForwardFooter: 'lookforward-footer'
+  },
+  scrapedArea: 'body', // Area to be scraped
+  useHistoryApi: true // Rewrite URL on page transitions using HistoryAPI
+}
 
 ### Event
 
