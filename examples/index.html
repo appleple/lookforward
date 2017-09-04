@@ -29,10 +29,13 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300:500">
   <link rel="stylesheet" href="https://unpkg.com/unitscss@latest/dist/units.min.css">
   <!-- /Required -->
-  <link rel="stylesheet" href="../css/lookforward.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/lookforward@latest/css/lookforward.min.css">
   <style>
     .js-lookforward {
       text-decoration: none;
+    }
+    code {
+      background-color: transparent;
     }
   </style>
 </head>
@@ -46,6 +49,11 @@
     <section class="uc-section _center">
       <h2 class="uc-section-title">LookForward.js</h2>
       <p>LookForward.js is a small library that helps you to create smooth transitions between pages without making too much efforts</p>
+
+    </section>
+    <section class="uc-section _dark _center">
+        <h2 class="uc-section-title">Demo</h2>
+        <p>Please click the cards below.</p>
       <div class="uc-grid-unit">
         <div class="uc-grid _col-3 _small-col-full _gutter">
           <div class="uc-grid-cell">
@@ -75,6 +83,20 @@
         </div>
       </div>
     </section>
+    <section class="uc-section _center">
+        <h2 class="uc-section-title">Installation</h2>
+        <p>via npm</p>
+        <div class="uc-code-unit">
+          <pre class="uc-code"><code>$ npm install lookforward --save</code></pre>
+        </div>
+        <p>or yarn</p>
+        <div class="uc-code-unit">
+          <pre class="uc-code"><code>$ yarn add lookforward</code></pre>
+        </div>
+    </section>
+
+    <section class="uc-section _dark _center">
+    </section>
     <!-- /Section -->
 
 
@@ -94,7 +116,7 @@
 
 
   <!-- Required -->
-  <script src="../js/lookforward.min.js"></script>
+  <script src="https://unpkg.com/lookforward@latest/js/lookforward.min.js"></script>
   <script>
     new LookForward('.js-lookforward');
   </script>
