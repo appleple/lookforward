@@ -2,8 +2,7 @@ const Nightmare = require('nightmare');
 const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
-const test_url = "file:///"+path.resolve(__dirname,"../examples/vanilla.html");
-const hash_url = test_url + "#group=nogroup&photo=rhinoceros";
+const test_url = "file:///"+path.resolve(__dirname,"../examples/index.html");
 
 const nightmare = Nightmare({
     webPreferences  : {
@@ -13,35 +12,18 @@ const nightmare = Nightmare({
   show: true
 });
 
-describe('test',() => {
-  it('caption', (done) => {
+describe('link clicked',() => {
+  it('should fetch contents', (done) => {
     nightmare.goto(test_url)
-      .click('[data-caption="lion"]')
-      .click('.smartphoto-arrow-right a')
-      .wait(1000)
+      .click('.uc-card')
       .evaluate(() => {
-        return document.querySelector('.smartphoto-caption').innerText;
+        return document.querySelector('.js-test-title').innerText;
       })
       .then((result) => {
-        assert.equal(result,'camel');
+        assert.equal(result,'Sample Entry');
         done();
       })
       .catch((error) => {
-        done(error);
-      });
-  });
-
-  it('hash', (done) => {
-    nightmare.goto(hash_url)
-      .wait(300)
-      .evaluate(() => {
-          return document.querySelector('.smartphoto-caption').innerText;
-      })
-      .then(result => {
-        assert.equal(result,'rhinoceros');
-        done();
-      })
-      .catch(error => {
         done(error);
       });
   });
