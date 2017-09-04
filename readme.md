@@ -40,7 +40,7 @@ const lookforward = require('lookforward');
 lookforward.js
 ```js
 window.addEventListener('DOMContentLoaded',function(){
-    new lookforward(".js-lookforward");
+    new LookForward(".js-lookforward");
 });
 ```
 
