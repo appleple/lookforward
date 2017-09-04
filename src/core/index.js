@@ -1,4 +1,4 @@
-import { fetch, append, remove, getUniqId, addClass } from '../lib/util.js';
+import { fetch, append, remove, getUniqId, addClass } from '../lib/util';
 
 const assign = require('es6-object-assign').assign;
 
@@ -14,7 +14,7 @@ const defaults = {
   },
   scrapedArea: 'body',
   useHistoryApi: true
-}
+};
 
 export default class LookForward {
 
@@ -32,7 +32,7 @@ export default class LookForward {
     if (window.history && this.options.useHistoryApi) {
       window.addEventListener('popstate', (event) => {
         if (event.state && event.state.pushed) {
-          this.addModal(event.state.html)
+          this.addModal(event.state.html);
         } else {
           this.removeModal();
         }
@@ -40,7 +40,7 @@ export default class LookForward {
     }
   }
 
-  addClickEvent (ele) {
+  addClickEvent(ele) {
     const id = this.id;
     ele.addEventListener('click', (event) => {
       event.preventDefault();
@@ -53,9 +53,9 @@ export default class LookForward {
         const html = this.buildHtml(target.innerHTML, id);
         this.addModal(html);
         if (window.history && this.options.useHistoryApi) {
-          window.history.pushState({pushed: true, html}, "" , href);
+          window.history.pushState({ pushed: true, html }, '', href);
         }
-      })
+      });
     });
   }
 

@@ -6,7 +6,7 @@
  *   license: MIT (http://opensource.org/licenses/MIT)
  *   author: appleple
  *   homepage: http://developer.a-blogcms.jp
- *   version: 0.0.1
+ *   version: 0.0.0
  *
  * es6-object-assign:
  *   license: MIT (http://opensource.org/licenses/MIT)
@@ -428,7 +428,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _util = require('../lib/util.js');
+var _util = require('../lib/util');
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -494,7 +494,7 @@ var LookForward = function () {
           var html = _this2.buildHtml(target.innerHTML, id);
           _this2.addModal(html);
           if (window.history && _this2.options.useHistoryApi) {
-            window.history.pushState({ pushed: true, html: html }, "", href);
+            window.history.pushState({ pushed: true, html: html }, '', href);
           }
         });
       });
@@ -545,7 +545,7 @@ var LookForward = function () {
 exports.default = LookForward;
 module.exports = exports['default'];
 
-},{"../lib/util.js":5,"es6-object-assign":1}],4:[function(require,module,exports){
+},{"../lib/util":5,"es6-object-assign":1}],4:[function(require,module,exports){
 'use strict';
 
 module.exports = require('./core/');
