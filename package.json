@@ -21,9 +21,7 @@
     "watch:sass": "onchange \"scss\" -- npm run build:sass",
     "sync": "browser-sync start --server './' --files './js/*.js' './css/*.css' --startPath '/docs/index.html'",
     "start": "npm-run-all -p watch:js watch:sass sync",
-    "patch": "npm run test && npm version patch && npm run build:js && node ./tools/index.js",
-    "minor": "npm run test && npm version minor && npm run build:js && node ./tools/index.js",
-    "major": "npm run test && npm version major && npm run build:js && node ./tools/index.js"
+    "deploy": "np --no-cleanup"
   },
   "repository": {
     "type": "git",
@@ -53,6 +51,7 @@
     "node-cmd": "^2.0.0",
     "node-sass": "^4.3.0",
     "nodemon": "^1.11.0",
+    "np": "^2.16.0",
     "npm-run-all": "^4.0.2",
     "onchange": "^3.2.1",
     "power-assert": "^1.4.2",
