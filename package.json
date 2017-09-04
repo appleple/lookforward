@@ -19,7 +19,7 @@
     "sass:min": "node-sass ./scss/lookforward.scss ./css/lookforward.min.css --output-style compressed",
     "watch:js": "onchange \"src/\" -- npm run build:js",
     "watch:sass": "onchange \"scss\" -- npm run build:sass",
-    "sync": "browser-sync start --server './' --files './js/*.js' './css/*.css' --startPath '/examples/index.html'",
+    "sync": "browser-sync start --server './' --files './js/*.js' './css/*.css' --startPath '/docs/index.html'",
     "start": "npm-run-all -p watch:js watch:sass sync",
     "patch": "npm run test && npm version patch && npm run build:js && node ./tools/index.js",
     "minor": "npm run test && npm version minor && npm run build:js && node ./tools/index.js",

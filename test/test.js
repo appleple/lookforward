@@ -2,7 +2,7 @@ const Nightmare = require('nightmare');
 const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
-const test_url = "file:///"+path.resolve(__dirname,"../examples/index.html");
+const test_url = "file:///"+path.resolve(__dirname,"../docs/index.html");
 
 const nightmare = Nightmare({
     webPreferences  : {
