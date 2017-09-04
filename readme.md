@@ -7,7 +7,6 @@
 It supports simple page transitions using HistoryAPI
 
 See [https://appleple.github.io/lookforward/](https://appleple.github.io/lookforward/) for complete docs and demos<br/>
-If you are Japasese, See here [https://www.appleple.com/blog/javascript/lookforward-js.html](https://www.appleple.com/blog/javascript/lookforward-js.html) instead.
 
 ## Feature
 
