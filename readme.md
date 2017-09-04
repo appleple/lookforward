@@ -48,6 +48,8 @@ $(function(){
 
 
 ### Option
+
+```js
 {
   classNames: {
     LookForward: 'lookforward',
@@ -61,6 +63,7 @@ $(function(){
   scrapedArea: 'body', // Area to be scraped
   useHistoryApi: true // Rewrite URL on page transitions using HistoryAPI
 }
+```
 
 ### Event
 
