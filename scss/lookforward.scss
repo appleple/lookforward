@@ -33,6 +33,26 @@ $modal-bg-color: #333;
 	}
 }
 
+@keyframes lookforward-slidedown {
+	from {
+		transform: translate(0, -100px);
+	}
+
+	to {
+		transform: translate(0, 0);
+	}
+}
+
+@keyframes lookforward-slidedown-end {
+	from {
+		transform: translate(0, 0);
+	}
+
+	to {
+		transform: translate(0, -100px);
+	}
+}
+
 @keyframes lookforward-slideleft {
 	from {
 		transform: translate(100px, 0);
@@ -53,7 +73,27 @@ $modal-bg-color: #333;
 	}
 }
 
-@keyframes lookforward-popup {
+@keyframes lookforward-slideright {
+	from {
+		transform: translate(-100px, 0);
+	}
+
+	to {
+		transform: translate(0, 0);
+	}
+}
+
+@keyframes lookforward-slideright-end {
+	from {
+		transform: translate(0, 0);
+	}
+
+	to {
+		transform: translate(-100px, 0);
+	}
+}
+
+@keyframes lookforward-scaleup {
   from {
     transform: scale(0.8)
   }
@@ -63,13 +103,33 @@ $modal-bg-color: #333;
   }
 }
 
-@keyframes lookforward-popup-end {
+@keyframes lookforward-scaleup-end {
   from {
     transform: scale(1)
   }
 
   to {
     transform: scale(0.8);
+  }
+}
+
+@keyframes lookforward-scaledown {
+  from {
+    transform: scale(1.2)
+  }
+
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes lookforward-scaledown-end {
+  from {
+    transform: scale(1)
+  }
+
+  to {
+    transform: scale(1.2);
   }
 }
 
@@ -107,11 +167,23 @@ $modal-bg-color: #333;
   &._slideup {
     animation-name: lookforward-slideup;
 	}
+  &._slidedown {
+    animation-name: lookforward-slidedown;
+	}
+	&._slideright {
+		animation-name: lookforward-slideright;
+	}
   &._slideleft {
     animation-name: lookforward-slideleft;
-  }
-  &._popup {
-    animation-name: lookforward-popup;
+	}
+	&._slideright {
+		animation-name: lookforward-slideright;
+	}
+  &._scaleup {
+    animation-name: lookforward-scaleup;
+	}
+	&._scaledown {
+    animation-name: lookforward-scaledown;
   }
 }
 
@@ -121,11 +193,20 @@ $modal-bg-color: #333;
     &._slideup {
       animation-name: lookforward-slideup-end;
 		}
+    &._slidedown {
+      animation-name: lookforward-slidedown-end;
+		}
+		&._slideright {
+			animation-name: lookforward-slideright-end;
+		}
 		&._slideleft {
 			animation-name: lookforward-slideleft-end;
 		}
-    &._popup {
-      animation-name: lookforward-popup-end;
+    &._scaleup {
+      animation-name: lookforward-scaleup-end;
+		}
+		&._scaledown {
+      animation-name: lookforward-scaledown-end;
     }
   } 
 }

@@ -25,6 +25,24 @@
   }
 }
 
+@keyframes lookforward-slidedown {
+  from {
+    transform: translate(0, -100px);
+  }
+  to {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes lookforward-slidedown-end {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(0, -100px);
+  }
+}
+
 @keyframes lookforward-slideleft {
   from {
     transform: translate(100px, 0);
@@ -43,7 +61,25 @@
   }
 }
 
-@keyframes lookforward-popup {
+@keyframes lookforward-slideright {
+  from {
+    transform: translate(-100px, 0);
+  }
+  to {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes lookforward-slideright-end {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(-100px, 0);
+  }
+}
+
+@keyframes lookforward-scaleup {
   from {
     transform: scale(0.8);
   }
@@ -52,12 +88,30 @@
   }
 }
 
-@keyframes lookforward-popup-end {
+@keyframes lookforward-scaleup-end {
   from {
     transform: scale(1);
   }
   to {
     transform: scale(0.8);
+  }
+}
+
+@keyframes lookforward-scaledown {
+  from {
+    transform: scale(1.2);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes lookforward-scaledown-end {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.2);
   }
 }
 
@@ -97,12 +151,28 @@
   animation-name: lookforward-slideup;
 }
 
+.lookforward-inner._slidedown {
+  animation-name: lookforward-slidedown;
+}
+
+.lookforward-inner._slideright {
+  animation-name: lookforward-slideright;
+}
+
 .lookforward-inner._slideleft {
   animation-name: lookforward-slideleft;
 }
 
-.lookforward-inner._popup {
-  animation-name: lookforward-popup;
+.lookforward-inner._slideright {
+  animation-name: lookforward-slideright;
+}
+
+.lookforward-inner._scaleup {
+  animation-name: lookforward-scaleup;
+}
+
+.lookforward-inner._scaledown {
+  animation-name: lookforward-scaledown;
 }
 
 .lookforward-close {
@@ -113,12 +183,24 @@
   animation-name: lookforward-slideup-end;
 }
 
+.lookforward-close .lookforward-inner._slidedown {
+  animation-name: lookforward-slidedown-end;
+}
+
+.lookforward-close .lookforward-inner._slideright {
+  animation-name: lookforward-slideright-end;
+}
+
 .lookforward-close .lookforward-inner._slideleft {
   animation-name: lookforward-slideleft-end;
 }
 
-.lookforward-close .lookforward-inner._popup {
-  animation-name: lookforward-popup-end;
+.lookforward-close .lookforward-inner._scaleup {
+  animation-name: lookforward-scaleup-end;
+}
+
+.lookforward-close .lookforward-inner._scaledown {
+  animation-name: lookforward-scaledown-end;
 }
 
 .lookforward-close-btn {
