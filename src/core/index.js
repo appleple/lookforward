@@ -12,7 +12,7 @@ const defaults = {
     LookForwardHeader: 'lookforward-header',
     LookForwardFooter: 'lookforward-footer',
   },
-  animation: 'slideup',
+  transition: 'slideup',
   scrapedArea: 'body',
   useHistoryApi: true
 };
@@ -34,7 +34,8 @@ export default class LookForward {
       window.addEventListener('popstate', (event) => {
         const state = event.state;
         if (state && state.pushed) {
-          const build = this.buildHtml(state.html, this.id, state.transition);
+          const transition = state.transition || this.options.transition;
+          const build = this.buildHtml(state.html, this.id, transition);
           this.addModal(build);
         } else {
           this.removeModal();
@@ -48,7 +49,7 @@ export default class LookForward {
     ele.addEventListener('click', (event) => {
       event.preventDefault();
       const href = ele.getAttribute('href');
-      const transition = ele.dataset.transition;
+      const transition = ele.dataset.transition || this.options.transition;
       fetch(href).then((doc) => {
         const target = doc.querySelector(this.options.scrapedArea);
         if (!target) {

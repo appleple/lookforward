@@ -6,7 +6,7 @@
  *   license: MIT (http://opensource.org/licenses/MIT)
  *   author: appleple
  *   homepage: http://developer.a-blogcms.jp
- *   version: 0.0.4
+ *   version: 0.0.5
  *
  * es6-object-assign:
  *   license: MIT (http://opensource.org/licenses/MIT)
@@ -469,7 +469,7 @@ var defaults = {
     LookForwardHeader: 'lookforward-header',
     LookForwardFooter: 'lookforward-footer'
   },
-  animation: 'slideup',
+  transition: 'slideup',
   scrapedArea: 'body',
   useHistoryApi: true
 };
@@ -496,7 +496,8 @@ var LookForward = function () {
       window.addEventListener('popstate', function (event) {
         var state = event.state;
         if (state && state.pushed) {
-          var build = _this.buildHtml(state.html, _this.id, state.transition);
+          var transition = state.transition || _this.options.transition;
+          var build = _this.buildHtml(state.html, _this.id, transition);
           _this.addModal(build);
         } else {
           _this.removeModal();
@@ -514,7 +515,7 @@ var LookForward = function () {
       ele.addEventListener('click', function (event) {
         event.preventDefault();
         var href = ele.getAttribute('href');
-        var transition = ele.dataset.transition;
+        var transition = ele.dataset.transition || _this2.options.transition;
         (0, _util.fetch)(href).then(function (doc) {
           var target = doc.querySelector(_this2.options.scrapedArea);
           if (!target) {
