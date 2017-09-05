@@ -469,8 +469,10 @@ var LookForward = function () {
     });
     if (window.history && this.options.useHistoryApi) {
       window.addEventListener('popstate', function (event) {
-        if (event.state && event.state.pushed) {
-          _this.addModal(event.state.html);
+        var state = event.state;
+        if (state && state.pushed) {
+          var build = _this.buildHtml(state.html, _this.id, state.transition);
+          _this.addModal(build);
         } else {
           _this.removeModal();
         }
@@ -496,7 +498,7 @@ var LookForward = function () {
           var html = _this2.buildHtml(target.innerHTML, id, transition);
           _this2.addModal(html);
           if (window.history && _this2.options.useHistoryApi) {
-            window.history.pushState({ pushed: true, html: html }, '', href);
+            window.history.pushState({ pushed: true, html: target.innerHTML, transition: transition }, '', href);
           }
         });
       });

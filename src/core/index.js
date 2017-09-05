@@ -32,8 +32,10 @@ export default class LookForward {
     });
     if (window.history && this.options.useHistoryApi) {
       window.addEventListener('popstate', (event) => {
-        if (event.state && event.state.pushed) {
-          this.addModal(event.state.html);
+        const state = event.state;
+        if (state && state.pushed) {
+          const build = this.buildHtml(state.html, this.id, state.transition);
+          this.addModal(build);
         } else {
           this.removeModal();
         }
@@ -55,7 +57,7 @@ export default class LookForward {
         const html = this.buildHtml(target.innerHTML, id, transition);
         this.addModal(html);
         if (window.history && this.options.useHistoryApi) {
-          window.history.pushState({ pushed: true, html }, '', href);
+          window.history.pushState({ pushed: true, html: target.innerHTML, transition }, '', href);
         }
       });
     });
