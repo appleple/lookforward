@@ -10,8 +10,9 @@ const defaults = {
     LookForwardClose: 'lookforward-close',
     LookForwardCloseBtn: 'lookforward-close-btn',
     LookForwardHeader: 'lookforward-header',
-    LookForwardFooter: 'lookforward-footer'
+    LookForwardFooter: 'lookforward-footer',
   },
+  animation: 'slideup',
   scrapedArea: 'body',
   useHistoryApi: true
 };
@@ -45,12 +46,13 @@ export default class LookForward {
     ele.addEventListener('click', (event) => {
       event.preventDefault();
       const href = ele.getAttribute('href');
+      const transition = ele.dataset.transition;
       fetch(href).then((doc) => {
         const target = doc.querySelector(this.options.scrapedArea);
         if (!target) {
           return;
         }
-        const html = this.buildHtml(target.innerHTML, id);
+        const html = this.buildHtml(target.innerHTML, id, transition);
         this.addModal(html);
         if (window.history && this.options.useHistoryApi) {
           window.history.pushState({ pushed: true, html }, '', href);
@@ -87,7 +89,7 @@ export default class LookForward {
     }, 300);
   }
 
-  buildHtml(html, id) {
+  buildHtml(html, id, transition) {
     const classNames = this.options.classNames;
     return (`
       <div class="${classNames.LookForward}" id="${id}">
@@ -95,7 +97,7 @@ export default class LookForward {
           <div class="${classNames.LookForwardHeader}">
             <button class="${classNames.LookForwardCloseBtn} js-lookforward-close-btn"></button>
           </div>
-          <div class="${classNames.LookForwardInner}">
+          <div class="${classNames.LookForwardInner} _${transition}">
             ${html}
           </div>
           <div class="${classNames.LookForwardFooter}">

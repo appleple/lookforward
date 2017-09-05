@@ -6,7 +6,7 @@
  *   license: MIT (http://opensource.org/licenses/MIT)
  *   author: appleple
  *   homepage: http://developer.a-blogcms.jp
- *   version: 0.0.3
+ *   version: 0.0.4
  *
  * es6-object-assign:
  *   license: MIT (http://opensource.org/licenses/MIT)
@@ -444,6 +444,7 @@ var defaults = {
     LookForwardHeader: 'lookforward-header',
     LookForwardFooter: 'lookforward-footer'
   },
+  animation: 'slideup',
   scrapedArea: 'body',
   useHistoryApi: true
 };
@@ -486,12 +487,13 @@ var LookForward = function () {
       ele.addEventListener('click', function (event) {
         event.preventDefault();
         var href = ele.getAttribute('href');
+        var transition = ele.dataset.transition;
         (0, _util.fetch)(href).then(function (doc) {
           var target = doc.querySelector(_this2.options.scrapedArea);
           if (!target) {
             return;
           }
-          var html = _this2.buildHtml(target.innerHTML, id);
+          var html = _this2.buildHtml(target.innerHTML, id, transition);
           _this2.addModal(html);
           if (window.history && _this2.options.useHistoryApi) {
             window.history.pushState({ pushed: true, html: html }, '', href);
@@ -533,9 +535,9 @@ var LookForward = function () {
     }
   }, {
     key: 'buildHtml',
-    value: function buildHtml(html, id) {
+    value: function buildHtml(html, id, transition) {
       var classNames = this.options.classNames;
-      return '\n      <div class="' + classNames.LookForward + '" id="' + id + '">\n        <div class="' + classNames.LookForwardBody + '">\n          <div class="' + classNames.LookForwardHeader + '">\n            <button class="' + classNames.LookForwardCloseBtn + ' js-lookforward-close-btn"></button>\n          </div>\n          <div class="' + classNames.LookForwardInner + '">\n            ' + html + '\n          </div>\n          <div class="' + classNames.LookForwardFooter + '">\n          </div>\n        </div>\n      </div>\n    ';
+      return '\n      <div class="' + classNames.LookForward + '" id="' + id + '">\n        <div class="' + classNames.LookForwardBody + '">\n          <div class="' + classNames.LookForwardHeader + '">\n            <button class="' + classNames.LookForwardCloseBtn + ' js-lookforward-close-btn"></button>\n          </div>\n          <div class="' + classNames.LookForwardInner + ' _' + transition + '">\n            ' + html + '\n          </div>\n          <div class="' + classNames.LookForwardFooter + '">\n          </div>\n        </div>\n      </div>\n    ';
     }
   }]);
 
