@@ -33,9 +33,29 @@ $modal-bg-color: #333;
 	}
 }
 
+@keyframes lookforward-slideleft {
+	from {
+		transform: translate(100px, 0);
+	}
+
+	to {
+		transform: translate(0, 0);
+	}
+}
+
+@keyframes lookforward-slideleft-end {
+	from {
+		transform: translate(0, 0);
+	}
+
+	to {
+		transform: translate(100px, 0);
+	}
+}
+
 @keyframes lookforward-popup {
   from {
-    transform: scale(0)
+    transform: scale(0.8)
   }
 
   to {
@@ -49,7 +69,7 @@ $modal-bg-color: #333;
   }
 
   to {
-    transform: scale(0);
+    transform: scale(0.8);
   }
 }
 
@@ -86,6 +106,9 @@ $modal-bg-color: #333;
 	animation-duration: $animation-speed;
   &._slideup {
     animation-name: lookforward-slideup;
+	}
+  &._slideleft {
+    animation-name: lookforward-slideleft;
   }
   &._popup {
     animation-name: lookforward-popup;
@@ -97,7 +120,10 @@ $modal-bg-color: #333;
   .lookforward-inner {
     &._slideup {
       animation-name: lookforward-slideup-end;
-    }
+		}
+		&._slideleft {
+			animation-name: lookforward-slideleft-end;
+		}
     &._popup {
       animation-name: lookforward-popup-end;
     }

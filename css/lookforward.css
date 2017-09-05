@@ -25,9 +25,27 @@
   }
 }
 
+@keyframes lookforward-slideleft {
+  from {
+    transform: translate(100px, 0);
+  }
+  to {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes lookforward-slideleft-end {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(100px, 0);
+  }
+}
+
 @keyframes lookforward-popup {
   from {
-    transform: scale(0);
+    transform: scale(0.8);
   }
   to {
     transform: scale(1);
@@ -39,7 +57,7 @@
     transform: scale(1);
   }
   to {
-    transform: scale(0);
+    transform: scale(0.8);
   }
 }
 
@@ -79,6 +97,10 @@
   animation-name: lookforward-slideup;
 }
 
+.lookforward-inner._slideleft {
+  animation-name: lookforward-slideleft;
+}
+
 .lookforward-inner._popup {
   animation-name: lookforward-popup;
 }
@@ -89,6 +111,10 @@
 
 .lookforward-close .lookforward-inner._slideup {
   animation-name: lookforward-slideup-end;
+}
+
+.lookforward-close .lookforward-inner._slideleft {
+  animation-name: lookforward-slideleft-end;
 }
 
 .lookforward-close .lookforward-inner._popup {
