@@ -61,7 +61,7 @@ export default class LookForward {
         const html = this.buildHtml(target.innerHTML, id, transition);
         this.removeModal().then(() => {
           this.addModal(html);
-        })
+        });
         if (window.history && this.options.useHistoryApi) {
           window.history.pushState({ pushed: true, html: target.innerHTML, transition }, '', href);
         }
@@ -92,7 +92,7 @@ export default class LookForward {
   }
 
   removeModal() {
-    return new Promise ((resolve, reject) => {
+    return new Promise((resolve) => {
       const classNames = this.options.classNames;
       const modal = document.querySelector(`#${this.id}`);
       const body = document.querySelector('body');
