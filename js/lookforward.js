@@ -563,7 +563,6 @@ var LookForward = function () {
       return new Promise(function (resolve) {
         var classNames = _this5.options.classNames;
         var modal = document.querySelector('#' + _this5.id + ' [data-root]');
-        var body = document.querySelector('body');
         if (!modal) {
           resolve();
           return;

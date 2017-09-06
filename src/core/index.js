@@ -77,7 +77,7 @@ export default class LookForward {
           this.addModal(html);
         });
         if (window.history && this.options.useHistoryApi) {
-          window.history.pushState({ pushed: true, html: target.innerHTML, transitionEnter, transitionLeave}, '', href);
+          window.history.pushState({ pushed: true, html: target.innerHTML, transitionEnter, transitionLeave }, '', href);
         }
       });
     });
@@ -99,7 +99,7 @@ export default class LookForward {
           this.removeModal();
         }
       });
-    })
+    });
     if (typeof selector === 'string') {
       const eles = document.querySelectorAll(`#${id} ${selector}`);
       [].forEach.call(eles, (ele) => {
@@ -113,7 +113,6 @@ export default class LookForward {
     return new Promise((resolve) => {
       const classNames = this.options.classNames;
       const modal = document.querySelector(`#${this.id} [data-root]`);
-      const body = document.querySelector('body');
       if (!modal) {
         resolve();
         return;
@@ -123,7 +122,7 @@ export default class LookForward {
         setTimeout(() => {
           remove(modal);
           this._fireEvent('close');
-        },300);
+        }, 300);
         return;
       }
       addClass(modal, classNames.LookForwardClose);
