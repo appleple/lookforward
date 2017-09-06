@@ -20,7 +20,7 @@ describe('link clicked',() => {
         return document.querySelector('.js-test-title').innerText;
       })
       .then((result) => {
-        assert.equal(result,'Sample Entry');
+        assert.equal(result,'Sample Entry A');
         done();
       })
       .catch((error) => {
