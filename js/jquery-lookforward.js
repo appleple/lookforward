@@ -6,7 +6,7 @@
  *   license: MIT (http://opensource.org/licenses/MIT)
  *   author: appleple
  *   homepage: http://developer.a-blogcms.jp
- *   version: 0.0.5
+ *   version: 0.0.6
  *
  * es6-object-assign:
  *   license: MIT (http://opensource.org/licenses/MIT)
@@ -486,6 +486,7 @@ var LookForward = function () {
     this.id = (0, _util.getUniqId)();
     var eles = typeof selector === 'string' ? document.querySelectorAll(selector) : selector;
     this.currentUrl = location.href;
+    this.selector = selector;
     if (!eles) {
       return;
     }
@@ -498,7 +499,9 @@ var LookForward = function () {
         if (state && state.pushed) {
           var transition = state.transition || _this.options.transition;
           var build = _this.buildHtml(state.html, _this.id, transition);
-          _this.addModal(build);
+          _this.removeModal().then(function () {
+            _this.addModal(build);
+          });
         } else {
           _this.removeModal();
         }
@@ -522,7 +525,9 @@ var LookForward = function () {
             return;
           }
           var html = _this2.buildHtml(target.innerHTML, id, transition);
-          _this2.addModal(html);
+          _this2.removeModal().then(function () {
+            _this2.addModal(html);
+          });
           if (window.history && _this2.options.useHistoryApi) {
             window.history.pushState({ pushed: true, html: target.innerHTML, transition: transition }, '', href);
           }
@@ -535,6 +540,7 @@ var LookForward = function () {
       var _this3 = this;
 
       var id = this.id;
+      var selector = this.selector;
       var body = document.querySelector('body');
       body.style.overflow = 'hidden';
       (0, _util.append)(body, build);
@@ -542,24 +548,37 @@ var LookForward = function () {
       closeBtn.addEventListener('click', function () {
         if (window.history && _this3.options.useHistoryApi) {
           window.history.back();
+        } else {
+          _this3.removeModal();
         }
-        _this3.removeModal();
       });
+      if (typeof selector === 'string') {
+        var eles = document.querySelectorAll('#' + id + ' ' + selector);
+        [].forEach.call(eles, function (ele) {
+          _this3.addClickEvent(ele);
+        });
+      }
     }
   }, {
     key: 'removeModal',
     value: function removeModal() {
-      var classNames = this.options.classNames;
-      var modal = document.querySelector('#' + this.id);
-      var body = document.querySelector('body');
-      if (!modal) {
-        return;
-      }
-      (0, _util.addClass)(modal, classNames.LookForwardClose);
-      setTimeout(function () {
-        (0, _util.remove)(modal);
-        body.style.overflow = '';
-      }, 300);
+      var _this4 = this;
+
+      return new Promise(function (resolve, reject) {
+        var classNames = _this4.options.classNames;
+        var modal = document.querySelector('#' + _this4.id);
+        var body = document.querySelector('body');
+        if (!modal) {
+          resolve();
+          return;
+        }
+        (0, _util.addClass)(modal, classNames.LookForwardClose);
+        setTimeout(function () {
+          (0, _util.remove)(modal);
+          body.style.overflow = '';
+          resolve();
+        }, 300);
+      });
     }
   }, {
     key: 'buildHtml',

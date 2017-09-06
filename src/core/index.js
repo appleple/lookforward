@@ -24,6 +24,7 @@ export default class LookForward {
     this.id = getUniqId();
     const eles = typeof selector === 'string' ? document.querySelectorAll(selector) : selector;
     this.currentUrl = location.href;
+    this.selector = selector;
     if (!eles) {
       return;
     }
@@ -36,7 +37,9 @@ export default class LookForward {
         if (state && state.pushed) {
           const transition = state.transition || this.options.transition;
           const build = this.buildHtml(state.html, this.id, transition);
-          this.addModal(build);
+          this.removeModal().then(() => {
+            this.addModal(build);
+          });
         } else {
           this.removeModal();
         }
@@ -56,7 +59,9 @@ export default class LookForward {
           return;
         }
         const html = this.buildHtml(target.innerHTML, id, transition);
-        this.addModal(html);
+        this.removeModal().then(() => {
+          this.addModal(html);
+        })
         if (window.history && this.options.useHistoryApi) {
           window.history.pushState({ pushed: true, html: target.innerHTML, transition }, '', href);
         }
@@ -66,6 +71,7 @@ export default class LookForward {
 
   addModal(build) {
     const id = this.id;
+    const selector = this.selector;
     const body = document.querySelector('body');
     body.style.overflow = 'hidden';
     append(body, build);
@@ -73,23 +79,34 @@ export default class LookForward {
     closeBtn.addEventListener('click', () => {
       if (window.history && this.options.useHistoryApi) {
         window.history.back();
+      } else {
+        this.removeModal();
       }
-      this.removeModal();
     });
+    if (typeof selector === 'string') {
+      const eles = document.querySelectorAll(`#${id} ${selector}`);
+      [].forEach.call(eles, (ele) => {
+        this.addClickEvent(ele);
+      });
+    }
   }
 
   removeModal() {
-    const classNames = this.options.classNames;
-    const modal = document.querySelector(`#${this.id}`);
-    const body = document.querySelector('body');
-    if (!modal) {
-      return;
-    }
-    addClass(modal, classNames.LookForwardClose);
-    setTimeout(() => {
-      remove(modal);
-      body.style.overflow = '';
-    }, 300);
+    return new Promise ((resolve, reject) => {
+      const classNames = this.options.classNames;
+      const modal = document.querySelector(`#${this.id}`);
+      const body = document.querySelector('body');
+      if (!modal) {
+        resolve();
+        return;
+      }
+      addClass(modal, classNames.LookForwardClose);
+      setTimeout(() => {
+        remove(modal);
+        body.style.overflow = '';
+        resolve();
+      }, 300);
+    });
   }
 
   buildHtml(html, id, transition) {
