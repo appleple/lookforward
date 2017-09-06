@@ -1,4 +1,4 @@
-import { fetch, append, remove, getUniqId, addClass } from '../lib/util';
+import { fetch, append, remove, getUniqId, addClass, triggerEvent } from '../lib/util';
 
 const assign = require('es6-object-assign').assign;
 
@@ -23,6 +23,7 @@ export default class LookForward {
     this.options = assign({}, defaults, options);
     this.id = getUniqId();
     const eles = typeof selector === 'string' ? document.querySelectorAll(selector) : selector;
+    const body = document.querySelector('body');
     this.currentUrl = location.href;
     this.selector = selector;
     if (!eles) {
@@ -31,24 +32,33 @@ export default class LookForward {
     [].forEach.call(eles, (ele) => {
       this.addClickEvent(ele);
     });
+    append(body, `<div id="${this.id}"></div>`);
     if (window.history && this.options.useHistoryApi) {
       window.addEventListener('popstate', (event) => {
         const state = event.state;
         if (state && state.pushed) {
           const transition = state.transition || this.options.transition;
-          const build = this.buildHtml(state.html, this.id, transition);
+          const build = this.buildHtml(state.html, transition);
           this.removeModal().then(() => {
             this.addModal(build);
           });
         } else {
-          this.removeModal();
+          this.removeModal().then(() => {
+            this._fireEvent('closeAll');
+          });
         }
       });
     }
   }
 
+  on(event, fn) {
+    const modal = document.querySelector(`#${this.id}`);
+    modal.addEventListener(event, (e) => {
+      fn.call(this, e);
+    });
+  }
+
   addClickEvent(ele) {
-    const id = this.id;
     ele.addEventListener('click', (event) => {
       event.preventDefault();
       const href = ele.getAttribute('href');
@@ -58,7 +68,7 @@ export default class LookForward {
         if (!target) {
           return;
         }
-        const html = this.buildHtml(target.innerHTML, id, transition);
+        const html = this.buildHtml(target.innerHTML, transition);
         this.removeModal().then(() => {
           this.addModal(html);
         });
@@ -73,8 +83,9 @@ export default class LookForward {
     const id = this.id;
     const selector = this.selector;
     const body = document.querySelector('body');
+    const target = document.querySelector(`#${id}`);
     body.style.overflow = 'hidden';
-    append(body, build);
+    append(target, build);
     const closeBtn = document.querySelector(`#${id} .js-lookforward-close-btn`);
     closeBtn.addEventListener('click', () => {
       if (window.history && this.options.useHistoryApi) {
@@ -89,12 +100,13 @@ export default class LookForward {
         this.addClickEvent(ele);
       });
     }
+    this._fireEvent('open');
   }
 
   removeModal() {
     return new Promise((resolve) => {
       const classNames = this.options.classNames;
-      const modal = document.querySelector(`#${this.id}`);
+      const modal = document.querySelector(`#${this.id} [data-root]`);
       const body = document.querySelector('body');
       if (!modal) {
         resolve();
@@ -104,15 +116,16 @@ export default class LookForward {
       setTimeout(() => {
         remove(modal);
         body.style.overflow = '';
+        this._fireEvent('close');
         resolve();
       }, 300);
     });
   }
 
-  buildHtml(html, id, transition) {
+  buildHtml(html, transition) {
     const classNames = this.options.classNames;
     return (`
-      <div class="${classNames.LookForward}" id="${id}">
+      <div class="${classNames.LookForward}" data-root>
         <div class="${classNames.LookForwardBody}">
           <div class="${classNames.LookForwardHeader}">
             <button class="${classNames.LookForwardCloseBtn} js-lookforward-close-btn"></button>
@@ -126,4 +139,10 @@ export default class LookForward {
       </div>
     `);
   }
+
+  _fireEvent(eventName) {
+    const modal = document.querySelector(`#${this.id}`);
+    triggerEvent(modal, eventName);
+  }
+
 }
