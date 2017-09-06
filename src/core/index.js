@@ -12,7 +12,8 @@ const defaults = {
     LookForwardHeader: 'lookforward-header',
     LookForwardFooter: 'lookforward-footer',
   },
-  transition: 'slideup',
+  transitionEnter: '',
+  transitionLeave: '',
   scrapedArea: 'body',
   useHistoryApi: true
 };
@@ -37,13 +38,15 @@ export default class LookForward {
       window.addEventListener('popstate', (event) => {
         const state = event.state;
         if (state && state.pushed) {
-          const transition = state.transition || this.options.transition;
-          const build = this.buildHtml(state.html, transition);
-          this.removeModal().then(() => {
+          const transitionEnter = state.transitionEnter;
+          const transitionLeave = state.transitionLeave;
+          const build = this.buildHtml(state.html, transitionEnter, transitionLeave);
+          this.removeModal(true).then(() => {
             this.addModal(build);
           });
         } else {
           this.removeModal().then(() => {
+            body.style.overflow = '';
             this._fireEvent('closeAll');
           });
         }
@@ -62,18 +65,19 @@ export default class LookForward {
     ele.addEventListener('click', (event) => {
       event.preventDefault();
       const href = ele.getAttribute('href');
-      const transition = ele.dataset.transition || this.options.transition;
+      const transitionEnter = ele.dataset.transitionEnter || this.options.transitionEnter;
+      const transitionLeave = ele.dataset.transitionLeave || this.options.transitionLeave;
       fetch(href).then((doc) => {
         const target = doc.querySelector(this.options.scrapedArea);
         if (!target) {
           return;
         }
-        const html = this.buildHtml(target.innerHTML, transition);
-        this.removeModal().then(() => {
+        const html = this.buildHtml(target.innerHTML, transitionEnter, transitionLeave);
+        this.removeModal(true).then(() => {
           this.addModal(html);
         });
         if (window.history && this.options.useHistoryApi) {
-          window.history.pushState({ pushed: true, html: target.innerHTML, transition }, '', href);
+          window.history.pushState({ pushed: true, html: target.innerHTML, transitionEnter, transitionLeave}, '', href);
         }
       });
     });
@@ -86,14 +90,16 @@ export default class LookForward {
     const target = document.querySelector(`#${id}`);
     body.style.overflow = 'hidden';
     append(target, build);
-    const closeBtn = document.querySelector(`#${id} .js-lookforward-close-btn`);
-    closeBtn.addEventListener('click', () => {
-      if (window.history && this.options.useHistoryApi) {
-        window.history.back();
-      } else {
-        this.removeModal();
-      }
-    });
+    const closeBtns = document.querySelectorAll(`#${id} .js-lookforward-close-btn`);
+    [].forEach.call(closeBtns, (closeBtn) => {
+      closeBtn.addEventListener('click', () => {
+        if (window.history && this.options.useHistoryApi) {
+          window.history.back();
+        } else {
+          this.removeModal();
+        }
+      });
+    })
     if (typeof selector === 'string') {
       const eles = document.querySelectorAll(`#${id} ${selector}`);
       [].forEach.call(eles, (ele) => {
@@ -103,7 +109,7 @@ export default class LookForward {
     this._fireEvent('open');
   }
 
-  removeModal() {
+  removeModal(immediate) {
     return new Promise((resolve) => {
       const classNames = this.options.classNames;
       const modal = document.querySelector(`#${this.id} [data-root]`);
@@ -112,17 +118,24 @@ export default class LookForward {
         resolve();
         return;
       }
+      if (immediate) {
+        resolve();
+        setTimeout(() => {
+          remove(modal);
+          this._fireEvent('close');
+        },300);
+        return;
+      }
       addClass(modal, classNames.LookForwardClose);
       setTimeout(() => {
         remove(modal);
-        body.style.overflow = '';
         this._fireEvent('close');
         resolve();
       }, 300);
     });
   }
 
-  buildHtml(html, transition) {
+  buildHtml(html, transitionEnter, transitionLeave) {
     const classNames = this.options.classNames;
     return (`
       <div class="${classNames.LookForward}" data-root>
@@ -130,7 +143,7 @@ export default class LookForward {
           <div class="${classNames.LookForwardHeader}">
             <button class="${classNames.LookForwardCloseBtn} js-lookforward-close-btn"></button>
           </div>
-          <div class="${classNames.LookForwardInner} _${transition}">
+          <div class="${classNames.LookForwardInner} _enter-${transitionEnter} _leave-${transitionLeave}">
             ${html}
           </div>
           <div class="${classNames.LookForwardFooter}">

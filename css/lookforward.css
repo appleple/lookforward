@@ -21,7 +21,7 @@
     transform: translate(0, 0);
   }
   to {
-    transform: translate(0, 100px);
+    transform: translate(0, -100px);
   }
 }
 
@@ -39,7 +39,7 @@
     transform: translate(0, 0);
   }
   to {
-    transform: translate(0, -100px);
+    transform: translate(0, 100px);
   }
 }
 
@@ -57,7 +57,7 @@
     transform: translate(0, 0);
   }
   to {
-    transform: translate(100px, 0);
+    transform: translate(-100px, 0);
   }
 }
 
@@ -75,7 +75,7 @@
     transform: translate(0, 0);
   }
   to {
-    transform: translate(-100px, 0);
+    transform: translate(100px, 0);
   }
 }
 
@@ -93,7 +93,7 @@
     transform: scale(1);
   }
   to {
-    transform: scale(0.8);
+    transform: scale(1.2);
   }
 }
 
@@ -111,7 +111,7 @@
     transform: scale(1);
   }
   to {
-    transform: scale(1.2);
+    transform: scale(0.8);
   }
 }
 
@@ -147,31 +147,31 @@
   animation-duration: 0.3s;
 }
 
-.lookforward-inner._slideup {
+.lookforward-inner._enter-slideup {
   animation-name: lookforward-slideup;
 }
 
-.lookforward-inner._slidedown {
+.lookforward-inner._enter-slidedown {
   animation-name: lookforward-slidedown;
 }
 
-.lookforward-inner._slideright {
+.lookforward-inner._enter-slideright {
   animation-name: lookforward-slideright;
 }
 
-.lookforward-inner._slideleft {
+.lookforward-inner._enter-slideleft {
   animation-name: lookforward-slideleft;
 }
 
-.lookforward-inner._slideright {
+.lookforward-inner._enter-slideright {
   animation-name: lookforward-slideright;
 }
 
-.lookforward-inner._scaleup {
+.lookforward-inner._enter-scaleup {
   animation-name: lookforward-scaleup;
 }
 
-.lookforward-inner._scaledown {
+.lookforward-inner._enter-scaledown {
   animation-name: lookforward-scaledown;
 }
 
@@ -179,27 +179,27 @@
   opacity: 0;
 }
 
-.lookforward-close .lookforward-inner._slideup {
+.lookforward-close .lookforward-inner._leave-slideup {
   animation-name: lookforward-slideup-end;
 }
 
-.lookforward-close .lookforward-inner._slidedown {
+.lookforward-close .lookforward-inner._leave-slidedown {
   animation-name: lookforward-slidedown-end;
 }
 
-.lookforward-close .lookforward-inner._slideright {
+.lookforward-close .lookforward-inner._leave-slideright {
   animation-name: lookforward-slideright-end;
 }
 
-.lookforward-close .lookforward-inner._slideleft {
+.lookforward-close .lookforward-inner._leave-slideleft {
   animation-name: lookforward-slideleft-end;
 }
 
-.lookforward-close .lookforward-inner._scaleup {
+.lookforward-close .lookforward-inner._leave-scaleup {
   animation-name: lookforward-scaleup-end;
 }
 
-.lookforward-close .lookforward-inner._scaledown {
+.lookforward-close .lookforward-inner._leave-scaledown {
   animation-name: lookforward-scaledown-end;
 }
 

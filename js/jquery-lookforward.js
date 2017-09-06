@@ -6,7 +6,7 @@
  *   license: MIT (http://opensource.org/licenses/MIT)
  *   author: appleple
  *   homepage: http://developer.a-blogcms.jp
- *   version: 0.0.7
+ *   version: 0.0.8
  *
  * es6-object-assign:
  *   license: MIT (http://opensource.org/licenses/MIT)
@@ -469,7 +469,8 @@ var defaults = {
     LookForwardHeader: 'lookforward-header',
     LookForwardFooter: 'lookforward-footer'
   },
-  transition: 'slideup',
+  transitionEnter: '',
+  transitionLeave: '',
   scrapedArea: 'body',
   useHistoryApi: true
 };
@@ -499,13 +500,15 @@ var LookForward = function () {
       window.addEventListener('popstate', function (event) {
         var state = event.state;
         if (state && state.pushed) {
-          var transition = state.transition || _this.options.transition;
-          var build = _this.buildHtml(state.html, transition);
-          _this.removeModal().then(function () {
+          var transitionEnter = state.transitionEnter;
+          var transitionLeave = state.transitionLeave;
+          var build = _this.buildHtml(state.html, transitionEnter, transitionLeave);
+          _this.removeModal(true).then(function () {
             _this.addModal(build);
           });
         } else {
           _this.removeModal().then(function () {
+            body.style.overflow = '';
             _this._fireEvent('closeAll');
           });
         }
@@ -531,18 +534,19 @@ var LookForward = function () {
       ele.addEventListener('click', function (event) {
         event.preventDefault();
         var href = ele.getAttribute('href');
-        var transition = ele.dataset.transition || _this3.options.transition;
+        var transitionEnter = ele.dataset.transitionEnter || _this3.options.transitionEnter;
+        var transitionLeave = ele.dataset.transitionLeave || _this3.options.transitionLeave;
         (0, _util.fetch)(href).then(function (doc) {
           var target = doc.querySelector(_this3.options.scrapedArea);
           if (!target) {
             return;
           }
-          var html = _this3.buildHtml(target.innerHTML, transition);
-          _this3.removeModal().then(function () {
+          var html = _this3.buildHtml(target.innerHTML, transitionEnter, transitionLeave);
+          _this3.removeModal(true).then(function () {
             _this3.addModal(html);
           });
           if (window.history && _this3.options.useHistoryApi) {
-            window.history.pushState({ pushed: true, html: target.innerHTML, transition: transition }, '', href);
+            window.history.pushState({ pushed: true, html: target.innerHTML, transitionEnter: transitionEnter, transitionLeave: transitionLeave }, '', href);
           }
         });
       });
@@ -558,13 +562,15 @@ var LookForward = function () {
       var target = document.querySelector('#' + id);
       body.style.overflow = 'hidden';
       (0, _util.append)(target, build);
-      var closeBtn = document.querySelector('#' + id + ' .js-lookforward-close-btn');
-      closeBtn.addEventListener('click', function () {
-        if (window.history && _this4.options.useHistoryApi) {
-          window.history.back();
-        } else {
-          _this4.removeModal();
-        }
+      var closeBtns = document.querySelectorAll('#' + id + ' .js-lookforward-close-btn');
+      [].forEach.call(closeBtns, function (closeBtn) {
+        closeBtn.addEventListener('click', function () {
+          if (window.history && _this4.options.useHistoryApi) {
+            window.history.back();
+          } else {
+            _this4.removeModal();
+          }
+        });
       });
       if (typeof selector === 'string') {
         var eles = document.querySelectorAll('#' + id + ' ' + selector);
@@ -576,7 +582,7 @@ var LookForward = function () {
     }
   }, {
     key: 'removeModal',
-    value: function removeModal() {
+    value: function removeModal(immediate) {
       var _this5 = this;
 
       return new Promise(function (resolve) {
@@ -587,10 +593,17 @@ var LookForward = function () {
           resolve();
           return;
         }
+        if (immediate) {
+          resolve();
+          setTimeout(function () {
+            (0, _util.remove)(modal);
+            _this5._fireEvent('close');
+          }, 300);
+          return;
+        }
         (0, _util.addClass)(modal, classNames.LookForwardClose);
         setTimeout(function () {
           (0, _util.remove)(modal);
-          body.style.overflow = '';
           _this5._fireEvent('close');
           resolve();
         }, 300);
@@ -598,9 +611,9 @@ var LookForward = function () {
     }
   }, {
     key: 'buildHtml',
-    value: function buildHtml(html, transition) {
+    value: function buildHtml(html, transitionEnter, transitionLeave) {
       var classNames = this.options.classNames;
-      return '\n      <div class="' + classNames.LookForward + '" data-root>\n        <div class="' + classNames.LookForwardBody + '">\n          <div class="' + classNames.LookForwardHeader + '">\n            <button class="' + classNames.LookForwardCloseBtn + ' js-lookforward-close-btn"></button>\n          </div>\n          <div class="' + classNames.LookForwardInner + ' _' + transition + '">\n            ' + html + '\n          </div>\n          <div class="' + classNames.LookForwardFooter + '">\n          </div>\n        </div>\n      </div>\n    ';
+      return '\n      <div class="' + classNames.LookForward + '" data-root>\n        <div class="' + classNames.LookForwardBody + '">\n          <div class="' + classNames.LookForwardHeader + '">\n            <button class="' + classNames.LookForwardCloseBtn + ' js-lookforward-close-btn"></button>\n          </div>\n          <div class="' + classNames.LookForwardInner + ' _enter-' + transitionEnter + ' _leave-' + transitionLeave + '">\n            ' + html + '\n          </div>\n          <div class="' + classNames.LookForwardFooter + '">\n          </div>\n        </div>\n      </div>\n    ';
     }
   }, {
     key: '_fireEvent',

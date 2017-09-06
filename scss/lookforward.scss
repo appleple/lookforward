@@ -29,7 +29,7 @@ $modal-bg-color: #333;
 	}
 
 	to {
-		transform: translate(0, 100px);
+		transform: translate(0, -100px);
 	}
 }
 
@@ -49,7 +49,7 @@ $modal-bg-color: #333;
 	}
 
 	to {
-		transform: translate(0, -100px);
+		transform: translate(0, 100px);
 	}
 }
 
@@ -69,7 +69,7 @@ $modal-bg-color: #333;
 	}
 
 	to {
-		transform: translate(100px, 0);
+		transform: translate(-100px, 0);
 	}
 }
 
@@ -89,7 +89,7 @@ $modal-bg-color: #333;
 	}
 
 	to {
-		transform: translate(-100px, 0);
+		transform: translate(100px, 0);
 	}
 }
 
@@ -109,7 +109,7 @@ $modal-bg-color: #333;
   }
 
   to {
-    transform: scale(0.8);
+    transform: scale(1.2);
   }
 }
 
@@ -129,7 +129,7 @@ $modal-bg-color: #333;
   }
 
   to {
-    transform: scale(1.2);
+    transform: scale(0.8);
   }
 }
 
@@ -164,25 +164,25 @@ $modal-bg-color: #333;
 .lookforward-inner {
   animation-timing-function: $animation-function;
 	animation-duration: $animation-speed;
-  &._slideup {
+  &._enter-slideup {
     animation-name: lookforward-slideup;
 	}
-  &._slidedown {
+  &._enter-slidedown {
     animation-name: lookforward-slidedown;
 	}
-	&._slideright {
+	&._enter-slideright {
 		animation-name: lookforward-slideright;
 	}
-  &._slideleft {
+  &._enter-slideleft {
     animation-name: lookforward-slideleft;
 	}
-	&._slideright {
+	&._enter-slideright {
 		animation-name: lookforward-slideright;
 	}
-  &._scaleup {
+  &._enter-scaleup {
     animation-name: lookforward-scaleup;
 	}
-	&._scaledown {
+	&._enter-scaledown {
     animation-name: lookforward-scaledown;
   }
 }
@@ -190,22 +190,22 @@ $modal-bg-color: #333;
 .lookforward-close {
   opacity: 0;
   .lookforward-inner {
-    &._slideup {
+    &._leave-slideup {
       animation-name: lookforward-slideup-end;
 		}
-    &._slidedown {
+    &._leave-slidedown {
       animation-name: lookforward-slidedown-end;
 		}
-		&._slideright {
+		&._leave-slideright {
 			animation-name: lookforward-slideright-end;
 		}
-		&._slideleft {
+		&._leave-slideleft {
 			animation-name: lookforward-slideleft-end;
 		}
-    &._scaleup {
+    &._leave-scaleup {
       animation-name: lookforward-scaleup-end;
 		}
-		&._scaledown {
+		&._leave-scaledown {
       animation-name: lookforward-scaledown-end;
     }
   } 
