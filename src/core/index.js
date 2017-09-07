@@ -50,7 +50,7 @@ export default class LookForward {
           const transitionLeave = state.transitionLeave;
           const id = getUniqId();
           const build = this.buildHtml(state.html, id, transitionEnter, transitionLeave);
-          if (this.historyLength > state.historyLength) {
+          if (this.historyLength >= state.historyLength) {
             this.removeModal();
           } else {
             this.addModal(build);
@@ -60,7 +60,6 @@ export default class LookForward {
           this.removeModal().then(() => {
             body.style.overflow = '';
             this._fireEvent('closeAll');
-            this.historyLength = 0;
           });
         }
       });
@@ -92,7 +91,6 @@ export default class LookForward {
         if (window.history && this.options.useHistoryApi) {
           const historyLength = this.historyLength;
           window.history.pushState({ pushed: true, html: target.innerHTML, id, transitionEnter, transitionLeave, historyLength }, '', href);
-          this.historyLength += 1;
         }
       });
     });
@@ -107,7 +105,7 @@ export default class LookForward {
     append(target, build);
     const modal = this.getModal();
     const closeBtn = modal.querySelector('.js-lookforward-close-btn');
-
+    this.historyLength += 1;
     closeBtn.addEventListener('click', () => {
       if (window.history && this.options.useHistoryApi) {
         window.history.back();
@@ -141,6 +139,7 @@ export default class LookForward {
         resolve();
       }
       addClass(modal, classNames.LookForwardClose);
+      this.historyLength -= 1;
       setTimeout(() => {
         remove(modal);
         this._fireEvent('close');
