@@ -46,6 +46,9 @@ $(function(){
 });
 ```
 
+```html
+<a href="./a.html" class="js-lookforward" data-transition-enter="slideup" data-transition-leave="slidedown">Open</a>
+```
 
 ### Option
 
@@ -67,8 +70,22 @@ $(function(){
 
 ### Event
 
+```js
+// when the modal is opened
+lookforward.on('open',function(e){
+  console.log('open');
+});
 
-### SCSS
+// when the modal is closed
+lookforward.on('close',function(e){
+  console.log('close');
+});
+
+// when all modals are closed
+lookforward.on('closeAll',function(e){
+  console.log('closeAll');
+});
+```
 
 
 ## Download
