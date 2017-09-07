@@ -6,7 +6,7 @@
  *   license: MIT (http://opensource.org/licenses/MIT)
  *   author: appleple
  *   homepage: http://developer.a-blogcms.jp
- *   version: 0.0.8
+ *   version: 0.0.9
  *
  * es6-object-assign:
  *   license: MIT (http://opensource.org/licenses/MIT)
@@ -503,7 +503,7 @@ var LookForward = function () {
           var transitionEnter = state.transitionEnter;
           var transitionLeave = state.transitionLeave;
           var build = _this.buildHtml(state.html, transitionEnter, transitionLeave);
-          _this.removeModal(true).then(function () {
+          _this.removeModal().then(function () {
             _this.addModal(build);
           });
         } else {
@@ -542,7 +542,7 @@ var LookForward = function () {
             return;
           }
           var html = _this3.buildHtml(target.innerHTML, transitionEnter, transitionLeave);
-          _this3.removeModal(true).then(function () {
+          _this3.removeModal().then(function () {
             _this3.addModal(html);
           });
           if (window.history && _this3.options.useHistoryApi) {
@@ -582,7 +582,7 @@ var LookForward = function () {
     }
   }, {
     key: 'removeModal',
-    value: function removeModal(immediate) {
+    value: function removeModal() {
       var _this5 = this;
 
       return new Promise(function (resolve) {
@@ -590,14 +590,6 @@ var LookForward = function () {
         var modal = document.querySelector('#' + _this5.id + ' [data-root]');
         if (!modal) {
           resolve();
-          return;
-        }
-        if (immediate) {
-          resolve();
-          setTimeout(function () {
-            (0, _util.remove)(modal);
-            _this5._fireEvent('close');
-          }, 300);
           return;
         }
         (0, _util.addClass)(modal, classNames.LookForwardClose);

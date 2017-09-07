@@ -41,7 +41,7 @@ export default class LookForward {
           const transitionEnter = state.transitionEnter;
           const transitionLeave = state.transitionLeave;
           const build = this.buildHtml(state.html, transitionEnter, transitionLeave);
-          this.removeModal(true).then(() => {
+          this.removeModal().then(() => {
             this.addModal(build);
           });
         } else {
@@ -73,7 +73,7 @@ export default class LookForward {
           return;
         }
         const html = this.buildHtml(target.innerHTML, transitionEnter, transitionLeave);
-        this.removeModal(true).then(() => {
+        this.removeModal().then(() => {
           this.addModal(html);
         });
         if (window.history && this.options.useHistoryApi) {
@@ -109,20 +109,12 @@ export default class LookForward {
     this._fireEvent('open');
   }
 
-  removeModal(immediate) {
+  removeModal() {
     return new Promise((resolve) => {
       const classNames = this.options.classNames;
       const modal = document.querySelector(`#${this.id} [data-root]`);
       if (!modal) {
         resolve();
-        return;
-      }
-      if (immediate) {
-        resolve();
-        setTimeout(() => {
-          remove(modal);
-          this._fireEvent('close');
-        }, 300);
         return;
       }
       addClass(modal, classNames.LookForwardClose);
