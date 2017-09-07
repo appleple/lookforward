@@ -13,6 +13,16 @@ $modal-bg-color: #333;
 	}
 }
 
+@keyframes lookforward-end {
+	from {
+		opacity: 1;
+	}
+
+	to {
+		opacity: 0;
+	}
+}
+
 @keyframes lookforward-slideup {
 	from {
 		transform: translate(0, 100px);
@@ -149,14 +159,7 @@ $modal-bg-color: #333;
 		animation-duration: $animation-speed;
 		animation-name: lookforward;
 	}
-	-webkit-transition: opacity $animation-speed $animation-function;
-	-moz-transition: opacity $animation-speed $animation-function;
-	-ms-transition: opacity $animation-speed $animation-function;
-	-o-transition: opacity $animation-speed $animation-function;
-  transition: opacity $animation-speed $animation-function;
 }
-
-
 
 .lookforward-body {
 	width: 100%;
@@ -188,11 +191,20 @@ $modal-bg-color: #333;
   }
 }
 
+[data-close-animation].lookforward-close {
+  animation-timing-function: $animation-function;
+	animation-duration: $animation-speed;
+	.lookforward-inner {
+		animation-timing-function: $animation-function;
+		animation-duration: $animation-speed;
+	}
+}
+
 [data-animation].lookforward-close,
 [data-close-animation].lookforward-close {
-  opacity: 0;
+	animation-name: lookforward-end;
+	opacity: 0;
   .lookforward-inner {
-
 		&._enter-slideup {
 			animation-name: lookforward-slidedown-end;
 		}

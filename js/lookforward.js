@@ -499,7 +499,7 @@ var LookForward = function () {
           }
           _this.historyLength = state.historyLength;
         } else {
-          _this.removeModal('first').then(function () {
+          _this.removeModal('first', true).then(function () {
             body.style.overflow = '';
             _this._fireEvent('closeAll');
             _this.historyLength = 0;
@@ -608,6 +608,8 @@ var LookForward = function () {
     value: function removeModal(which) {
       var _this5 = this;
 
+      var last = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
       return new Promise(function (resolve) {
         var classNames = _this5.options.classNames;
         var modal = document.querySelector('#' + _this5.id + ' [data-root]:' + which + '-child');
@@ -615,6 +617,11 @@ var LookForward = function () {
           resolve();
         }
         (0, _util.addClass)(modal, classNames.LookForwardClose);
+        if (last) {
+          setTimeout(function () {
+            modal.setAttribute('data-close-animation', 'true');
+          }, 10);
+        }
         setTimeout(function () {
           (0, _util.remove)(modal);
           _this5._fireEvent('close');
