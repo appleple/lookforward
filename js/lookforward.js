@@ -545,7 +545,7 @@ var LookForward = function () {
       var target = document.querySelector('#' + id);
       body.style.overflow = 'hidden';
       (0, _util.append)(target, build);
-      var modal = this.getModal('last');
+      var modal = this.getModal();
       var closeBtn = modal.querySelector('.js-lookforward-close-btn');
 
       closeBtn.addEventListener('click', function () {
@@ -572,7 +572,7 @@ var LookForward = function () {
   }, {
     key: 'getModal',
     value: function getModal() {
-      var which = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'first';
+      var which = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'last';
 
       return document.querySelector('#' + this.id + ' [data-root]:' + which + '-child');
     }

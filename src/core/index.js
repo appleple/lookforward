@@ -105,7 +105,7 @@ export default class LookForward {
     const target = document.querySelector(`#${id}`);
     body.style.overflow = 'hidden';
     append(target, build);
-    const modal = this.getModal('last');
+    const modal = this.getModal();
     const closeBtn = modal.querySelector('.js-lookforward-close-btn');
 
     closeBtn.addEventListener('click', () => {
@@ -129,7 +129,7 @@ export default class LookForward {
     return document.querySelectorAll(`#${this.id} [data-root]`);
   }
 
-  getModal(which = 'first') {
+  getModal(which = 'last') {
     return document.querySelector(`#${this.id} [data-root]:${which}-child`);
   }
 
