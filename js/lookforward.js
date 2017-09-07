@@ -527,7 +527,7 @@ var LookForward = function () {
           }
           var id = (0, _util.getUniqId)();
           var html = _this3.buildHtml(target.innerHTML, id, transitionEnter, transitionLeave);
-          _this3.addModal(html).then(function (modal) {
+          _this3.addModal(html).then(function () {
             if (window.history && _this3.options.useHistoryApi) {
               var historyLength = _this3.historyLength;
               window.history.pushState({ pushed: true, html: target.innerHTML, id: id, transitionEnter: transitionEnter, transitionLeave: transitionLeave, historyLength: historyLength }, '', href);

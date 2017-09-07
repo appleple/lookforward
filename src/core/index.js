@@ -1,7 +1,6 @@
 import {
   fetch,
   append,
-  prepend,
   remove,
   getUniqId,
   addClass,
@@ -91,7 +90,7 @@ export default class LookForward {
         }
         const id = getUniqId();
         const html = this.buildHtml(target.innerHTML, id, transitionEnter, transitionLeave);
-        this.addModal(html).then((modal) => {
+        this.addModal(html).then(() => {
           if (window.history && this.options.useHistoryApi) {
             const historyLength = this.historyLength;
             window.history.pushState({ pushed: true, html: target.innerHTML, id, transitionEnter, transitionLeave, historyLength }, '', href);
@@ -111,7 +110,7 @@ export default class LookForward {
       body.style.overflow = 'hidden';
       append(target, build);
       const modal = this.getModal('last');
-      const closeBtn = modal.querySelector(`.js-lookforward-close-btn`);
+      const closeBtn = modal.querySelector('.js-lookforward-close-btn');
 
       closeBtn.addEventListener('click', () => {
         if (window.history && this.options.useHistoryApi) {
@@ -131,7 +130,6 @@ export default class LookForward {
       setTimeout(() => {
         resolve(modal);
       }, 300);
-
     });
   }
 
@@ -140,7 +138,7 @@ export default class LookForward {
   }
 
   getModal(which = 'first') {
-    return document.querySelector(`#${this.id} [data-root]:${which}-child`)
+    return document.querySelector(`#${this.id} [data-root]:${which}-child`);
   }
 
   removeModal(which = 'last') {
