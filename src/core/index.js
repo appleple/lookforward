@@ -1,11 +1,11 @@
-import { 
-  fetch, 
-  append, 
-  prepend, 
-  remove, 
-  getUniqId, 
-  addClass, 
-  triggerEvent 
+import {
+  fetch,
+  append,
+  prepend,
+  remove,
+  getUniqId,
+  addClass,
+  triggerEvent
 } from '../lib/util';
 
 const assign = require('es6-object-assign').assign;
@@ -108,8 +108,8 @@ export default class LookForward {
         });
         if (window.history && this.options.useHistoryApi) {
           const historyLength = this.historyLength;
-          window.history.pushState({ pushed: true, html: target.innerHTML, id, transitionEnter, transitionLeave, historyLength}, '', href);
-          this.historyLength++;
+          window.history.pushState({ pushed: true, html: target.innerHTML, id, transitionEnter, transitionLeave, historyLength }, '', href);
+          this.historyLength += 1;
         }
       });
     });
@@ -123,7 +123,7 @@ export default class LookForward {
       const target = document.querySelector(`#${id}`);
       body.style.overflow = 'hidden';
       if (!animation) {
-        build = build.replace("data-animation","data-no-animation");
+        build = build.replace('data-animation', 'data-no-animation');
       }
       if (which === 'append') {
         append(target, build);
@@ -150,7 +150,7 @@ export default class LookForward {
       if (animation) {
         setTimeout(() => {
           resolve();
-        },300);
+        }, 300);
       } else {
         resolve();
       }
