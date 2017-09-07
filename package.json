@@ -1,6 +1,6 @@
 {
   "name": "lookforward",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "lookforward",
   "homepage": "http://developer.a-blogcms.jp",
   "main": "lib/index.js",
