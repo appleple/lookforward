@@ -54,19 +54,9 @@ export default class LookForward {
           const id = getUniqId();
           const build = this.buildHtml(state.html, id, transitionEnter, transitionLeave);
           if (this.historyLength > state.historyLength) {
-            this.addModal(build, 'prepend', false).then(() => {
-              const modals = this.getModals();
-              if (modals && modals.length > 1) {
-                this.removeModal('last');
-              }
-            });
+            this.removeModal('last');
           } else {
-            this.addModal(build, 'append', true).then(() => {
-              const modals = this.getModals();
-              if (modals && modals.length > 1) {
-                this.removeModal('first');
-              }
-            });
+            this.addModal(build);
           }
           this.historyLength = state.historyLength;
         } else {
@@ -93,6 +83,7 @@ export default class LookForward {
       const href = ele.getAttribute('href');
       const transitionEnter = ele.dataset.transitionEnter || this.options.transitionEnter;
       const transitionLeave = ele.dataset.transitionLeave || this.options.transitionLeave;
+
       fetch(href).then((doc) => {
         const target = doc.querySelector(this.options.scrapedArea);
         if (!target) {
@@ -100,60 +91,47 @@ export default class LookForward {
         }
         const id = getUniqId();
         const html = this.buildHtml(target.innerHTML, id, transitionEnter, transitionLeave);
-        this.addModal(html, 'append', true).then(() => {
-          const modals = this.getModals();
-          if (modals && modals.length > 1) {
-            this.removeModal('first');
+        this.addModal(html).then((modal) => {
+          if (window.history && this.options.useHistoryApi) {
+            const historyLength = this.historyLength;
+            window.history.pushState({ pushed: true, html: target.innerHTML, id, transitionEnter, transitionLeave, historyLength }, '', href);
+            this.historyLength += 1;
           }
         });
-        if (window.history && this.options.useHistoryApi) {
-          const historyLength = this.historyLength;
-          window.history.pushState({ pushed: true, html: target.innerHTML, id, transitionEnter, transitionLeave, historyLength }, '', href);
-          this.historyLength += 1;
-        }
       });
     });
   }
 
-  addModal(build, which = 'append', animation = true) {
+  addModal(build) {
     return new Promise((resolve) => {
       const id = this.id;
       const selector = this.selector;
       const body = document.querySelector('body');
       const target = document.querySelector(`#${id}`);
       body.style.overflow = 'hidden';
-      if (!animation) {
-        build = build.replace('data-animation', 'data-no-animation');
-      }
-      if (which === 'append') {
-        append(target, build);
-      } else if (which === 'prepend') {
-        prepend(target, build);
-      }
-      const closeBtns = document.querySelectorAll(`#${id} .js-lookforward-close-btn`);
-      [].forEach.call(closeBtns, (closeBtn) => {
-        closeBtn.addEventListener('click', () => {
-          if (window.history && this.options.useHistoryApi) {
-            window.history.back();
-          } else {
-            this.removeModal();
-          }
-        });
+      append(target, build);
+      const modal = this.getModal('last');
+      const closeBtn = modal.querySelector(`.js-lookforward-close-btn`);
+
+      closeBtn.addEventListener('click', () => {
+        if (window.history && this.options.useHistoryApi) {
+          window.history.back();
+        } else {
+          this.removeModal();
+        }
       });
+
       if (typeof selector === 'string') {
         const eles = document.querySelectorAll(`#${id} ${selector}`);
         [].forEach.call(eles, (ele) => {
           this.addClickEvent(ele);
         });
       }
-      this._fireEvent('open');
-      if (animation) {
-        setTimeout(() => {
-          resolve();
-        }, 300);
-      } else {
-        resolve();
-      }
+
+      setTimeout(() => {
+        resolve(modal);
+      }, 300);
+
     });
   }
 
@@ -161,7 +139,11 @@ export default class LookForward {
     return document.querySelectorAll(`#${this.id} [data-root]`);
   }
 
-  removeModal(which, last = false) {
+  getModal(which = 'first') {
+    return document.querySelector(`#${this.id} [data-root]:${which}-child`)
+  }
+
+  removeModal(which = 'first') {
     return new Promise((resolve) => {
       const classNames = this.options.classNames;
       const modal = document.querySelector(`#${this.id} [data-root]:${which}-child`);
@@ -169,11 +151,6 @@ export default class LookForward {
         resolve();
       }
       addClass(modal, classNames.LookForwardClose);
-      if (last) {
-        setTimeout(() => {
-          modal.setAttribute('data-close-animation', 'true');
-        }, 10);
-      }
       setTimeout(() => {
         remove(modal);
         this._fireEvent('close');
@@ -186,7 +163,7 @@ export default class LookForward {
     const classNames = this.options.classNames;
     return (`
       <div class="${classNames.LookForward}" data-root data-animation id="${id}">
-        <div class="${classNames.LookForwardBody}">
+        <div class="${classNames.LookForwardBody}" data-body>
           <div class="${classNames.LookForwardHeader}">
             <button class="${classNames.LookForwardCloseBtn} js-lookforward-close-btn"></button>
           </div>
