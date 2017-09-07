@@ -125,14 +125,17 @@
   z-index: 1000000;
   cursor: pointer;
   opacity: 1;
-  animation-timing-function: ease-out;
-  animation-duration: 0.3s;
-  animation-name: lookforward;
   -webkit-transition: opacity 0.3s ease-out;
   -moz-transition: opacity 0.3s ease-out;
   -ms-transition: opacity 0.3s ease-out;
   -o-transition: opacity 0.3s ease-out;
   transition: opacity 0.3s ease-out;
+}
+
+.lookforward[data-animation] {
+  animation-timing-function: ease-out;
+  animation-duration: 0.3s;
+  animation-name: lookforward;
 }
 
 .lookforward-body {
@@ -142,64 +145,97 @@
   overflow-y: auto;
 }
 
-.lookforward-inner {
+[data-animation] .lookforward-inner {
   animation-timing-function: ease-out;
   animation-duration: 0.3s;
 }
 
-.lookforward-inner._enter-slideup {
+[data-animation] .lookforward-inner._enter-slideup {
   animation-name: lookforward-slideup;
 }
 
-.lookforward-inner._enter-slidedown {
+[data-animation] .lookforward-inner._enter-slidedown {
   animation-name: lookforward-slidedown;
 }
 
-.lookforward-inner._enter-slideright {
+[data-animation] .lookforward-inner._enter-slideright {
   animation-name: lookforward-slideright;
 }
 
-.lookforward-inner._enter-slideleft {
+[data-animation] .lookforward-inner._enter-slideleft {
   animation-name: lookforward-slideleft;
 }
 
-.lookforward-inner._enter-slideright {
-  animation-name: lookforward-slideright;
-}
-
-.lookforward-inner._enter-scaleup {
+[data-animation] .lookforward-inner._enter-scaleup {
   animation-name: lookforward-scaleup;
 }
 
-.lookforward-inner._enter-scaledown {
+[data-animation] .lookforward-inner._enter-scaledown {
   animation-name: lookforward-scaledown;
 }
 
-.lookforward-close {
+[data-animation].lookforward-close,
+[data-close-animation].lookforward-close {
   opacity: 0;
 }
 
-.lookforward-close .lookforward-inner._leave-slideup {
-  animation-name: lookforward-slideup-end;
-}
-
-.lookforward-close .lookforward-inner._leave-slidedown {
+[data-animation].lookforward-close .lookforward-inner._enter-slideup,
+[data-close-animation].lookforward-close .lookforward-inner._enter-slideup {
   animation-name: lookforward-slidedown-end;
 }
 
-.lookforward-close .lookforward-inner._leave-slideright {
-  animation-name: lookforward-slideright-end;
+[data-animation].lookforward-close .lookforward-inner._enter-slidedown,
+[data-close-animation].lookforward-close .lookforward-inner._enter-slidedown {
+  animation-name: lookforward-slideup-end;
 }
 
-.lookforward-close .lookforward-inner._leave-slideleft {
+[data-animation].lookforward-close .lookforward-inner._enter-slideright,
+[data-close-animation].lookforward-close .lookforward-inner._enter-slideright {
   animation-name: lookforward-slideleft-end;
 }
 
-.lookforward-close .lookforward-inner._leave-scaleup {
+[data-animation].lookforward-close .lookforward-inner._enter-slideleft,
+[data-close-animation].lookforward-close .lookforward-inner._enter-slideleft {
+  animation-name: lookforward-slideright-end;
+}
+
+[data-animation].lookforward-close .lookforward-inner._enter-scaleup,
+[data-close-animation].lookforward-close .lookforward-inner._enter-scaleup {
+  animation-name: lookforward-scaledown-end;
+}
+
+[data-animation].lookforward-close .lookforward-inner._enter-scaledown,
+[data-close-animation].lookforward-close .lookforward-inner._enter-scaledown {
   animation-name: lookforward-scaleup-end;
 }
 
-.lookforward-close .lookforward-inner._leave-scaledown {
+[data-animation].lookforward-close .lookforward-inner._leave-slideup,
+[data-close-animation].lookforward-close .lookforward-inner._leave-slideup {
+  animation-name: lookforward-slideup-end;
+}
+
+[data-animation].lookforward-close .lookforward-inner._leave-slidedown,
+[data-close-animation].lookforward-close .lookforward-inner._leave-slidedown {
+  animation-name: lookforward-slidedown-end;
+}
+
+[data-animation].lookforward-close .lookforward-inner._leave-slideright,
+[data-close-animation].lookforward-close .lookforward-inner._leave-slideright {
+  animation-name: lookforward-slideright-end;
+}
+
+[data-animation].lookforward-close .lookforward-inner._leave-slideleft,
+[data-close-animation].lookforward-close .lookforward-inner._leave-slideleft {
+  animation-name: lookforward-slideleft-end;
+}
+
+[data-animation].lookforward-close .lookforward-inner._leave-scaleup,
+[data-close-animation].lookforward-close .lookforward-inner._leave-scaleup {
+  animation-name: lookforward-scaleup-end;
+}
+
+[data-animation].lookforward-close .lookforward-inner._leave-scaledown,
+[data-close-animation].lookforward-close .lookforward-inner._leave-scaledown {
   animation-name: lookforward-scaledown-end;
 }
 

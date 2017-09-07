@@ -21,6 +21,12 @@ export const append = (element,string) => {
   element.appendChild(doc.querySelector('body').childNodes[0]);
 }
 
+export const prepend = (element, string) => {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(string, 'text/html');
+  element.insertBefore(doc.querySelector('body').childNodes[0], element.firstChild);
+}
+
 export const getUniqId = () => {
   return (Date.now().toString(36) + Math.random().toString(36).substr(2, 5)).toUpperCase();
 }

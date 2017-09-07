@@ -144,15 +144,19 @@ $modal-bg-color: #333;
 	z-index: 1000000;
 	cursor: pointer;
 	opacity: 1;
-	animation-timing-function: $animation-function;
-	animation-duration: $animation-speed;
-	animation-name: lookforward;
+	&[data-animation] {
+		animation-timing-function: $animation-function;
+		animation-duration: $animation-speed;
+		animation-name: lookforward;
+	}
 	-webkit-transition: opacity $animation-speed $animation-function;
 	-moz-transition: opacity $animation-speed $animation-function;
 	-ms-transition: opacity $animation-speed $animation-function;
 	-o-transition: opacity $animation-speed $animation-function;
   transition: opacity $animation-speed $animation-function;
 }
+
+
 
 .lookforward-body {
 	width: 100%;
@@ -161,7 +165,7 @@ $modal-bg-color: #333;
   overflow-y: auto;
 }
 
-.lookforward-inner {
+[data-animation] .lookforward-inner {
   animation-timing-function: $animation-function;
 	animation-duration: $animation-speed;
   &._enter-slideup {
@@ -176,9 +180,6 @@ $modal-bg-color: #333;
   &._enter-slideleft {
     animation-name: lookforward-slideleft;
 	}
-	&._enter-slideright {
-		animation-name: lookforward-slideright;
-	}
   &._enter-scaleup {
     animation-name: lookforward-scaleup;
 	}
@@ -187,9 +188,30 @@ $modal-bg-color: #333;
   }
 }
 
-.lookforward-close {
+[data-animation].lookforward-close,
+[data-close-animation].lookforward-close {
   opacity: 0;
   .lookforward-inner {
+
+		&._enter-slideup {
+			animation-name: lookforward-slidedown-end;
+		}
+		&._enter-slidedown {
+			animation-name: lookforward-slideup-end;
+		}
+		&._enter-slideright {
+			animation-name: lookforward-slideleft-end;
+		}
+		&._enter-slideleft {
+			animation-name: lookforward-slideright-end;
+		}
+		&._enter-scaleup {
+			animation-name: lookforward-scaledown-end;
+		}
+		&._enter-scaledown {
+			animation-name: lookforward-scaleup-end;
+		}
+
     &._leave-slideup {
       animation-name: lookforward-slideup-end;
 		}
