@@ -34,9 +34,7 @@ export default class LookForward {
     const body = document.querySelector('body');
     this.currentUrl = location.href;
     this.selector = selector;
-    if (window.history) {
-      this.historyLength = 0;
-    }
+    this.historyLength = 0;
     if (!eles) {
       return;
     }
@@ -90,47 +88,41 @@ export default class LookForward {
         }
         const id = getUniqId();
         const html = this.buildHtml(target.innerHTML, id, transitionEnter, transitionLeave);
-        this.addModal(html).then(() => {
-          if (window.history && this.options.useHistoryApi) {
-            const historyLength = this.historyLength;
-            window.history.pushState({ pushed: true, html: target.innerHTML, id, transitionEnter, transitionLeave, historyLength }, '', href);
-            this.historyLength += 1;
-          }
-        });
+        this.addModal(html);
+        if (window.history && this.options.useHistoryApi) {
+          const historyLength = this.historyLength;
+          window.history.pushState({ pushed: true, html: target.innerHTML, id, transitionEnter, transitionLeave, historyLength }, '', href);
+          this.historyLength += 1;
+        }
       });
     });
   }
 
   addModal(build) {
-    return new Promise((resolve) => {
-      const id = this.id;
-      const selector = this.selector;
-      const body = document.querySelector('body');
-      const target = document.querySelector(`#${id}`);
-      body.style.overflow = 'hidden';
-      append(target, build);
-      const modal = this.getModal('last');
-      const closeBtn = modal.querySelector('.js-lookforward-close-btn');
+    const id = this.id;
+    const selector = this.selector;
+    const body = document.querySelector('body');
+    const target = document.querySelector(`#${id}`);
+    body.style.overflow = 'hidden';
+    append(target, build);
+    const modal = this.getModal('last');
+    const closeBtn = modal.querySelector('.js-lookforward-close-btn');
 
-      closeBtn.addEventListener('click', () => {
-        if (window.history && this.options.useHistoryApi) {
-          window.history.back();
-        } else {
-          this.removeModal();
-        }
-      });
-
-      if (typeof selector === 'string') {
-        const eles = document.querySelectorAll(`#${id} ${selector}`);
-        [].forEach.call(eles, (ele) => {
-          this.addClickEvent(ele);
-        });
+    closeBtn.addEventListener('click', () => {
+      if (window.history && this.options.useHistoryApi) {
+        window.history.back();
+      } else {
+        this.removeModal();
       }
-
-      setTimeout(() => {
-        resolve(modal);
-      }, 300);
     });
+
+    if (typeof selector === 'string') {
+      const eles = modal.querySelectorAll(selector);
+      [].forEach.call(eles, (ele) => {
+        this.addClickEvent(ele);
+      });
+    }
+    return modal;
   }
 
   getModals() {
