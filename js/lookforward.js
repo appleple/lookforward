@@ -6,7 +6,7 @@
  *   license: MIT (http://opensource.org/licenses/MIT)
  *   author: appleple
  *   homepage: http://developer.a-blogcms.jp
- *   version: 0.0.12
+ *   version: 0.0.13
  *
  * es6-object-assign:
  *   license: MIT (http://opensource.org/licenses/MIT)
@@ -433,6 +433,7 @@ var _util = require('../lib/util');
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var assign = require('es6-object-assign').assign;
+var Promise = require('es6-promise-polyfill').Promise;
 
 var defaults = {
   classNames: {
@@ -616,7 +617,7 @@ var LookForward = function () {
 exports.default = LookForward;
 module.exports = exports['default'];
 
-},{"../lib/util":5,"es6-object-assign":1}],4:[function(require,module,exports){
+},{"../lib/util":5,"es6-object-assign":1,"es6-promise-polyfill":2}],4:[function(require,module,exports){
 'use strict';
 
 module.exports = require('./core/');

@@ -8,6 +8,7 @@ import {
 } from '../lib/util';
 
 const assign = require('es6-object-assign').assign;
+const Promise = require('es6-promise-polyfill').Promise;
 
 const defaults = {
   classNames: {
