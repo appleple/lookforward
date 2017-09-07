@@ -483,13 +483,13 @@ var LookForward = function () {
           var id = (0, _util.getUniqId)();
           var build = _this.buildHtml(state.html, id, transitionEnter, transitionLeave);
           if (_this.historyLength > state.historyLength) {
-            _this.removeModal('last');
+            _this.removeModal();
           } else {
             _this.addModal(build);
           }
           _this.historyLength = state.historyLength;
         } else {
-          _this.removeModal('first', true).then(function () {
+          _this.removeModal().then(function () {
             body.style.overflow = '';
             _this._fireEvent('closeAll');
             _this.historyLength = 0;
@@ -589,7 +589,7 @@ var LookForward = function () {
     value: function removeModal() {
       var _this5 = this;
 
-      var which = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'first';
+      var which = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'last';
 
       return new Promise(function (resolve) {
         var classNames = _this5.options.classNames;

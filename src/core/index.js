@@ -54,13 +54,13 @@ export default class LookForward {
           const id = getUniqId();
           const build = this.buildHtml(state.html, id, transitionEnter, transitionLeave);
           if (this.historyLength > state.historyLength) {
-            this.removeModal('last');
+            this.removeModal();
           } else {
             this.addModal(build);
           }
           this.historyLength = state.historyLength;
         } else {
-          this.removeModal('first', true).then(() => {
+          this.removeModal().then(() => {
             body.style.overflow = '';
             this._fireEvent('closeAll');
             this.historyLength = 0;
@@ -143,7 +143,7 @@ export default class LookForward {
     return document.querySelector(`#${this.id} [data-root]:${which}-child`)
   }
 
-  removeModal(which = 'first') {
+  removeModal(which = 'last') {
     return new Promise((resolve) => {
       const classNames = this.options.classNames;
       const modal = document.querySelector(`#${this.id} [data-root]:${which}-child`);
