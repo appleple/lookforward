@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="78px" height="43px" viewBox="0 0 78 43" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 2</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-2" fill="#BDBDBD">
+            <g id="Group">
+                <rect id="Rectangle" transform="translate(13.000000, 13.000000) rotate(-45.000000) translate(-13.000000, -13.000000) " x="-2" y="10" width="30" height="6"></rect>
+                <rect id="Rectangle" transform="translate(13.000000, 30.000000) scale(1, -1) rotate(-45.000000) translate(-13.000000, -30.000000) " x="-2" y="27" width="30" height="6"></rect>
+            </g>
+            <g id="Group" transform="translate(26.000000, 0.000000)">
+                <rect id="Rectangle" transform="translate(13.000000, 13.000000) rotate(-45.000000) translate(-13.000000, -13.000000) " x="-2" y="10" width="30" height="6"></rect>
+                <rect id="Rectangle" transform="translate(13.000000, 30.000000) scale(1, -1) rotate(-45.000000) translate(-13.000000, -30.000000) " x="-2" y="27" width="30" height="6"></rect>
+            </g>
+            <g id="Group" transform="translate(52.000000, 0.000000)">
+                <rect id="Rectangle" transform="translate(13.000000, 13.000000) rotate(-45.000000) translate(-13.000000, -13.000000) " x="-2" y="10" width="30" height="6"></rect>
+                <rect id="Rectangle" transform="translate(13.000000, 30.000000) scale(1, -1) rotate(-45.000000) translate(-13.000000, -30.000000) " x="-2" y="27" width="30" height="6"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

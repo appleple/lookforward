@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="90px" height="160px" viewBox="0 0 90 160" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+    <title>Group</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group">
+            <rect id="Rectangle" fill="#D8D8D8" x="0" y="0" width="90" height="160"></rect>
+            <polygon id="Triangle" fill="#FFFFFF" transform="translate(42.500000, 78.000000) rotate(-90.000000) translate(-42.500000, -78.000000) " points="42.5 53 75 103 10 103"></polygon>
+        </g>
+    </g>
+</svg>

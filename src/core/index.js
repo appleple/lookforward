@@ -121,6 +121,7 @@ export default class LookForward {
         this.addClickEvent(ele);
       });
     }
+    this._fireEvent('open');
     return modal;
   }
 
@@ -153,9 +154,9 @@ export default class LookForward {
     const classNames = this.options.classNames;
     return (`
       <div class="${classNames.LookForward}" data-root data-animation id="${id}">
+        <button class="${classNames.LookForwardCloseBtn} js-lookforward-close-btn"></button>
         <div class="${classNames.LookForwardBody}" data-body>
-          <div class="${classNames.LookForwardHeader}">
-            <button class="${classNames.LookForwardCloseBtn} js-lookforward-close-btn"></button>
+          <div class="${classNames.LookForwardHeader}">     
           </div>
           <div class="${classNames.LookForwardInner} _enter-${transitionEnter} _leave-${transitionLeave}">
             ${html}
