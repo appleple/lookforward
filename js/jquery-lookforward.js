@@ -6,7 +6,7 @@
  *   license: MIT (http://opensource.org/licenses/MIT)
  *   author: appleple
  *   homepage: http://developer.a-blogcms.jp
- *   version: 0.0.14
+ *   version: 0.0.16
  *
  * es6-object-assign:
  *   license: MIT (http://opensource.org/licenses/MIT)
@@ -586,6 +586,7 @@ var LookForward = function () {
           _this4.addClickEvent(ele);
         });
       }
+      this._fireEvent('open');
       return modal;
     }
   }, {

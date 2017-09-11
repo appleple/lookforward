@@ -121,6 +121,7 @@ export default class LookForward {
         this.addClickEvent(ele);
       });
     }
+    this._fireEvent('open');
     return modal;
   }
 
