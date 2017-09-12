@@ -177,6 +177,7 @@
   margin-top: -15px;
   margin-left: -15px;
   border: 8px solid #17CDDD;
+  box-sizing: border-box;
   border-right-color: transparent;
   border-radius: 50%;
   animation: lookforward-loader .5s infinite linear;

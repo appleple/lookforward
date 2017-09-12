@@ -198,7 +198,8 @@ $pattern4: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0
   height: 30px;
   margin-top: -15px;
   margin-left: -15px;
-  border: 8px solid #17CDDD;
+	border: 8px solid #17CDDD;
+	box-sizing: border-box;
   border-right-color: transparent;
   border-radius: 50%;
   animation: lookforward-loader .5s infinite linear;
