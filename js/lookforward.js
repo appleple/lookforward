@@ -6,7 +6,7 @@
  *   license: MIT (http://opensource.org/licenses/MIT)
  *   author: appleple
  *   homepage: http://developer.a-blogcms.jp
- *   version: 0.0.17
+ *   version: 0.1.0
  *
  * es6-object-assign:
  *   license: MIT (http://opensource.org/licenses/MIT)
@@ -447,6 +447,7 @@ var defaults = {
     LookForwardLoader: 'lookforward-loader',
     LookForwardLoaderWrap: 'lookforward-loader-wrap'
   },
+  closeBtnPattern: 1,
   transitionEnter: '',
   transitionLeave: '',
   scrapedArea: 'body',
@@ -622,7 +623,8 @@ var LookForward = function () {
     key: 'buildHtml',
     value: function buildHtml(html, id, transitionEnter, transitionLeave) {
       var classNames = this.options.classNames;
-      return '\n      <div class="' + classNames.LookForward + '" data-root data-animation id="' + id + '">\n        <button class="' + classNames.LookForwardCloseBtn + ' js-lookforward-close-btn"></button>\n        <div class="' + classNames.LookForwardBody + '" data-body>\n          <div class="' + classNames.LookForwardHeader + '">     \n          </div>\n          <div class="' + classNames.LookForwardInner + ' _enter-' + transitionEnter + ' _leave-' + transitionLeave + '">\n            ' + html + '\n          </div>\n          <div class="' + classNames.LookForwardFooter + '">\n          </div>\n        </div>\n      </div>\n    ';
+      var pattern = this.options.closeBtnPattern;
+      return '\n      <div class="' + classNames.LookForward + '" data-root data-animation id="' + id + '">\n        <button class="' + classNames.LookForwardCloseBtn + ' _pattern' + pattern + ' js-lookforward-close-btn"></button>\n        <div class="' + classNames.LookForwardBody + '" data-body>\n          <div class="' + classNames.LookForwardHeader + '">     \n          </div>\n          <div class="' + classNames.LookForwardInner + ' _enter-' + transitionEnter + ' _leave-' + transitionLeave + '">\n            ' + html + '\n          </div>\n          <div class="' + classNames.LookForwardFooter + '">\n          </div>\n        </div>\n      </div>\n    ';
     }
   }, {
     key: '_fireEvent',

@@ -22,6 +22,7 @@ const defaults = {
     LookForwardLoader: 'lookforward-loader',
     LookForwardLoaderWrap: 'lookforward-loader-wrap'
   },
+  closeBtnPattern: 1,
   transitionEnter: '',
   transitionLeave: '',
   scrapedArea: 'body',
@@ -172,9 +173,10 @@ export default class LookForward {
 
   buildHtml(html, id, transitionEnter, transitionLeave) {
     const classNames = this.options.classNames;
+    const pattern = this.options.closeBtnPattern;
     return (`
       <div class="${classNames.LookForward}" data-root data-animation id="${id}">
-        <button class="${classNames.LookForwardCloseBtn} js-lookforward-close-btn"></button>
+        <button class="${classNames.LookForwardCloseBtn} _pattern${pattern} js-lookforward-close-btn"></button>
         <div class="${classNames.LookForwardBody}" data-body>
           <div class="${classNames.LookForwardHeader}">     
           </div>

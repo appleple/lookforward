@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="90px" height="160px" viewBox="0 0 90 160" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="160px" height="160px" viewBox="0 0 160 160" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <!-- Generator: Sketch 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
-    <title>Group</title>
+    <title>pattern3</title>
     <desc>Created with Sketch.</desc>
     <defs></defs>
     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Group">
-            <rect id="Rectangle" fill="#D8D8D8" x="0" y="0" width="90" height="160"></rect>
-            <polygon id="Triangle" fill="#FFFFFF" transform="translate(42.500000, 78.000000) rotate(-90.000000) translate(-42.500000, -78.000000) " points="42.5 53 75 103 10 103"></polygon>
+        <g id="pattern3" fill-rule="nonzero" fill="#D8D8D8">
+            <path d="M10,0 L150,0 C155.522847,-1.01453063e-15 160,4.4771525 160,10 L160,150 C160,155.522847 155.522847,160 150,160 L10,160 C4.4771525,160 6.76353751e-16,155.522847 0,150 L0,10 L0,10 C-6.76353751e-16,4.4771525 4.4771525,1.01453063e-15 10,0 L10,0 Z M50.5,80 L100.5,112.5 L100.5,47.5 L50.5,80 Z" id="Combined-Shape"></path>
         </g>
     </g>
 </svg>
