@@ -19,6 +19,8 @@ const defaults = {
     LookForwardCloseBtn: 'lookforward-close-btn',
     LookForwardHeader: 'lookforward-header',
     LookForwardFooter: 'lookforward-footer',
+    LookForwardLoader: 'lookforward-loader',
+    LookForwardLoaderWrap: 'lookforward-loader-wrap'
   },
   transitionEnter: '',
   transitionLeave: '',
@@ -80,8 +82,9 @@ export default class LookForward {
       const href = ele.getAttribute('href');
       const transitionEnter = ele.dataset.transitionEnter || this.options.transitionEnter;
       const transitionLeave = ele.dataset.transitionLeave || this.options.transitionLeave;
-
+      this.addLoader();
       fetch(href).then((doc) => {
+        this.removeLoader();
         const target = doc.querySelector(this.options.scrapedArea);
         if (!target) {
           return;
@@ -95,6 +98,23 @@ export default class LookForward {
         }
       });
     });
+  }
+
+  addLoader() {
+    const id = this.id;
+    const classNames = this.options.classNames;
+    const target = document.querySelector(`#${id}`);
+    const html = `<div class="${classNames.LookForwardLoaderWrap}" data-id="loader">
+      <span class="${classNames.LookForwardLoader}"></span>
+    </div>`;
+    append(target, html);
+  }
+
+  removeLoader() {
+    const id = this.id;
+    const target = document.querySelector(`#${id}`);
+    const loader = target.querySelector('[data-id="loader"]');
+    remove(loader);
   }
 
   addModal(build) {

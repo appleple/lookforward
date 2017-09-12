@@ -6,7 +6,7 @@
  *   license: MIT (http://opensource.org/licenses/MIT)
  *   author: appleple
  *   homepage: http://developer.a-blogcms.jp
- *   version: 0.0.16
+ *   version: 0.0.17
  *
  * es6-object-assign:
  *   license: MIT (http://opensource.org/licenses/MIT)
@@ -468,7 +468,9 @@ var defaults = {
     LookForwardClose: 'lookforward-close',
     LookForwardCloseBtn: 'lookforward-close-btn',
     LookForwardHeader: 'lookforward-header',
-    LookForwardFooter: 'lookforward-footer'
+    LookForwardFooter: 'lookforward-footer',
+    LookForwardLoader: 'lookforward-loader',
+    LookForwardLoaderWrap: 'lookforward-loader-wrap'
   },
   transitionEnter: '',
   transitionLeave: '',
@@ -542,8 +544,9 @@ var LookForward = function () {
         var href = ele.getAttribute('href');
         var transitionEnter = ele.dataset.transitionEnter || _this3.options.transitionEnter;
         var transitionLeave = ele.dataset.transitionLeave || _this3.options.transitionLeave;
-
+        _this3.addLoader();
         (0, _util.fetch)(href).then(function (doc) {
+          _this3.removeLoader();
           var target = doc.querySelector(_this3.options.scrapedArea);
           if (!target) {
             return;
@@ -557,6 +560,23 @@ var LookForward = function () {
           }
         });
       });
+    }
+  }, {
+    key: 'addLoader',
+    value: function addLoader() {
+      var id = this.id;
+      var classNames = this.options.classNames;
+      var target = document.querySelector('#' + id);
+      var html = '<div class="' + classNames.LookForwardLoaderWrap + '" data-id="loader">\n      <span class="' + classNames.LookForwardLoader + '"></span>\n    </div>';
+      (0, _util.append)(target, html);
+    }
+  }, {
+    key: 'removeLoader',
+    value: function removeLoader() {
+      var id = this.id;
+      var target = document.querySelector('#' + id);
+      var loader = target.querySelector('[data-id="loader"]');
+      (0, _util.remove)(loader);
     }
   }, {
     key: 'addModal',

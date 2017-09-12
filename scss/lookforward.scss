@@ -147,6 +147,21 @@ $pattern4: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0
   }
 }
 
+@keyframes lookforward-loader {
+  0% {
+    opacity: .4;
+    transform: rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: rotate(180deg);
+  }
+  100% {
+    opacity: .4;
+    transform: rotate(360deg);
+  }
+}
+
 
 .lookforward {
 	position: fixed;
@@ -163,6 +178,31 @@ $pattern4: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0
 		animation-duration: $animation-speed;
 		animation-name: lookforward;
 	}
+}
+
+.lookforward-loader-wrap {
+  display: block;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1000000;
+}
+
+.lookforward-loader {
+  position: absolute;
+  z-index: 101;
+  top: 50%;
+  left: 50%;
+  width: 30px;
+  height: 30px;
+  margin-top: -15px;
+  margin-left: -15px;
+  border: 8px solid #17CDDD;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: lookforward-loader .5s infinite linear;
 }
 
 .lookforward-body {
