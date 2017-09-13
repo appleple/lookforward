@@ -27,7 +27,8 @@ const defaults = {
   transitionEnter: '',
   transitionLeave: '',
   scrapedArea: 'body',
-  useHistoryApi: true
+  useHistoryApi: true,
+  execInnerScript: true
 };
 
 export default class LookForward {
@@ -58,7 +59,10 @@ export default class LookForward {
           if (this.historyLength >= state.historyLength) {
             this.removeModal();
           } else {
-            this.addModal(build);
+            const modal = this.addModal(build);
+            if (this.options.execInnerScript) {
+              this.execInnerScript(modal);
+            }
           }
           this.historyLength = state.historyLength;
         } else {
@@ -93,12 +97,31 @@ export default class LookForward {
         }
         const id = getUniqId();
         const html = this.buildHtml(target.innerHTML, id, transitionEnter, transitionLeave);
-        this.addModal(html);
+        const modal = this.addModal(html);
+        if (this.options.execInnerScript) {
+          this.execInnerScript(modal);
+        }
         if (window.history && this.options.useHistoryApi) {
           const historyLength = this.historyLength;
           window.history.pushState({ pushed: true, html: target.innerHTML, id, transitionEnter, transitionLeave, historyLength }, '', href);
         }
       });
+    });
+  }
+
+  execInnerScript(modal) {
+    const id = this.id;
+    const scripts = modal.querySelectorAll('script');
+    const body = document.querySelector('body');
+    [].forEach.call(scripts, (element) => {
+      const script = document.createElement('script');
+      const attrs = element.attributes;
+      for(let i = 0, len = attrs.length; i < len; i++) {
+        const attr = attrs[i];
+        script.setAttribute(attr.name, attr.value);
+      }
+      script.innerHTML = element.innerHTML;
+      modal.appendChild(script);
     });
   }
 
