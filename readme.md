@@ -87,6 +87,25 @@ lookforward.on('closeAll',function(e){
 });
 ```
 
+### Tips
+
+If you want to execute JavaScript on each pages, I recommend you specifying scraped area so to exclude common JavaScript such as jQuery and include local JavaScript.
+The following is the example how
+
+```html
+<body>
+  <div class="js-lookforward-body">
+    <!-- contents here -->
+    <script src="/path/to/local.js"></script>
+  </div>
+  <script src="/path/to/jquery.js"></script>
+  <script src="/path/to/lookforward.js"></script>
+  <script>
+  new LookForward('.js-lookforward', {scrapedArea: '.js-lookforward-body'});
+  </script>
+</body>
+```
+
 
 ## Download
 [Download ZIP](https://github.com/appleple/lookforward/archive/master.zip)
