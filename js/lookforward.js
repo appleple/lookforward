@@ -552,7 +552,7 @@ var LookForward = function () {
       [].forEach.call(scripts, function (element) {
         var script = document.createElement('script');
         var attrs = element.attributes;
-        for (var i = 0, len = attrs.length; i < len; i++) {
+        for (var i = 0, len = attrs.length; i < len; i += 1) {
           var attr = attrs[i];
           script.setAttribute(attr.name, attr.value);
         }
