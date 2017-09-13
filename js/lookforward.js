@@ -6,7 +6,7 @@
  *   license: MIT (http://opensource.org/licenses/MIT)
  *   author: appleple
  *   homepage: http://developer.a-blogcms.jp
- *   version: 0.2.0
+ *   version: 1.0.0
  *
  * es6-object-assign:
  *   license: MIT (http://opensource.org/licenses/MIT)
@@ -453,7 +453,7 @@ var defaults = {
   transitionLeave: '',
   scrapedArea: 'body',
   useHistoryApi: true,
-  execInnerScript: true
+  execInnerScript: false
 };
 
 var LookForward = function () {

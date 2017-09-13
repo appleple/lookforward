@@ -28,7 +28,7 @@ const defaults = {
   transitionLeave: '',
   scrapedArea: 'body',
   useHistoryApi: true,
-  execInnerScript: true
+  execInnerScript: false
 };
 
 export default class LookForward {
