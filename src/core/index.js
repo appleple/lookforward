@@ -110,13 +110,11 @@ export default class LookForward {
   }
 
   execInnerScript(modal) {
-    const id = this.id;
     const scripts = modal.querySelectorAll('script');
-    const body = document.querySelector('body');
     [].forEach.call(scripts, (element) => {
       const script = document.createElement('script');
       const attrs = element.attributes;
-      for(let i = 0, len = attrs.length; i < len; i++) {
+      for (let i = 0, len = attrs.length; i < len; i++) {
         const attr = attrs[i];
         script.setAttribute(attr.name, attr.value);
       }
