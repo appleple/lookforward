@@ -22,6 +22,7 @@ const defaults = {
     LookForwardLoader: 'lookforward-loader',
     LookForwardLoaderWrap: 'lookforward-loader-wrap'
   },
+  closeBtnClass: 'js-lookforward-close-btn',
   closeBtnPattern: 1,
   transitionEnter: '',
   transitionLeave: '',
@@ -126,14 +127,17 @@ export default class LookForward {
     body.style.overflow = 'hidden';
     append(target, build);
     const modal = this.getModal();
-    const closeBtn = modal.querySelector('.js-lookforward-close-btn');
+    const closeBtns = modal.querySelectorAll(`.${this.options.closeBtnClass}`);
     this.historyLength += 1;
-    closeBtn.addEventListener('click', () => {
-      if (window.history && this.options.useHistoryApi) {
-        window.history.back();
-      } else {
-        this.removeModal();
-      }
+
+    [].forEach.call(closeBtns, (closeBtn) => {
+      closeBtn.addEventListener('click', () => {
+        if (window.history && this.options.useHistoryApi) {
+          window.history.back();
+        } else {
+          this.removeModal();
+        }
+      });
     });
 
     if (typeof selector === 'string') {
@@ -174,9 +178,10 @@ export default class LookForward {
   buildHtml(html, id, transitionEnter, transitionLeave) {
     const classNames = this.options.classNames;
     const pattern = this.options.closeBtnPattern;
+    const closeBtnClass = this.options.closeBtnClass;
     return (`
       <div class="${classNames.LookForward}" data-root data-animation id="${id}">
-        <button class="${classNames.LookForwardCloseBtn} _pattern${pattern} js-lookforward-close-btn"></button>
+        <button class="${classNames.LookForwardCloseBtn} _pattern${pattern} ${closeBtnClass}"></button>
         <div class="${classNames.LookForwardBody}" data-body>
           <div class="${classNames.LookForwardHeader}">     
           </div>

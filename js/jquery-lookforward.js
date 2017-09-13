@@ -6,7 +6,7 @@
  *   license: MIT (http://opensource.org/licenses/MIT)
  *   author: appleple
  *   homepage: http://developer.a-blogcms.jp
- *   version: 0.1.0
+ *   version: 0.1.2
  *
  * es6-object-assign:
  *   license: MIT (http://opensource.org/licenses/MIT)
@@ -472,6 +472,7 @@ var defaults = {
     LookForwardLoader: 'lookforward-loader',
     LookForwardLoaderWrap: 'lookforward-loader-wrap'
   },
+  closeBtnClass: 'js-lookforward-close-btn',
   closeBtnPattern: 1,
   transitionEnter: '',
   transitionLeave: '',
@@ -591,14 +592,17 @@ var LookForward = function () {
       body.style.overflow = 'hidden';
       (0, _util.append)(target, build);
       var modal = this.getModal();
-      var closeBtn = modal.querySelector('.js-lookforward-close-btn');
+      var closeBtns = modal.querySelectorAll('.' + this.options.closeBtnClass);
       this.historyLength += 1;
-      closeBtn.addEventListener('click', function () {
-        if (window.history && _this4.options.useHistoryApi) {
-          window.history.back();
-        } else {
-          _this4.removeModal();
-        }
+
+      [].forEach.call(closeBtns, function (closeBtn) {
+        closeBtn.addEventListener('click', function () {
+          if (window.history && _this4.options.useHistoryApi) {
+            window.history.back();
+          } else {
+            _this4.removeModal();
+          }
+        });
       });
 
       if (typeof selector === 'string') {
@@ -649,7 +653,8 @@ var LookForward = function () {
     value: function buildHtml(html, id, transitionEnter, transitionLeave) {
       var classNames = this.options.classNames;
       var pattern = this.options.closeBtnPattern;
-      return '\n      <div class="' + classNames.LookForward + '" data-root data-animation id="' + id + '">\n        <button class="' + classNames.LookForwardCloseBtn + ' _pattern' + pattern + ' js-lookforward-close-btn"></button>\n        <div class="' + classNames.LookForwardBody + '" data-body>\n          <div class="' + classNames.LookForwardHeader + '">     \n          </div>\n          <div class="' + classNames.LookForwardInner + ' _enter-' + transitionEnter + ' _leave-' + transitionLeave + '">\n            ' + html + '\n          </div>\n          <div class="' + classNames.LookForwardFooter + '">\n          </div>\n        </div>\n      </div>\n    ';
+      var closeBtnClass = this.options.closeBtnClass;
+      return '\n      <div class="' + classNames.LookForward + '" data-root data-animation id="' + id + '">\n        <button class="' + classNames.LookForwardCloseBtn + ' _pattern' + pattern + ' ' + closeBtnClass + '"></button>\n        <div class="' + classNames.LookForwardBody + '" data-body>\n          <div class="' + classNames.LookForwardHeader + '">     \n          </div>\n          <div class="' + classNames.LookForwardInner + ' _enter-' + transitionEnter + ' _leave-' + transitionLeave + '">\n            ' + html + '\n          </div>\n          <div class="' + classNames.LookForwardFooter + '">\n          </div>\n        </div>\n      </div>\n    ';
     }
   }, {
     key: '_fireEvent',
