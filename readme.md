@@ -98,7 +98,6 @@ The following is the example how
     <!-- contents here -->
     <script src="/path/to/local.js"></script>
   </div>
-  <script src="/path/to/jquery.js"></script>
   <script src="/path/to/lookforward.js"></script>
   <script>
   new LookForward('.js-lookforward', {
