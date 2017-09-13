@@ -101,7 +101,10 @@ The following is the example how
   <script src="/path/to/jquery.js"></script>
   <script src="/path/to/lookforward.js"></script>
   <script>
-  new LookForward('.js-lookforward', {scrapedArea: '.js-lookforward-body'});
+  new LookForward('.js-lookforward', {
+    scrapedArea: '.js-lookforward-body',
+    execInnerScript: true
+  });
   </script>
 </body>
 ```
