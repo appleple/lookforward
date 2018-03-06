@@ -1,3 +1,4 @@
+import 'custom-event-polyfill';
 import {
   fetch,
   append,
