@@ -60,6 +60,7 @@
     "watchify": "^3.9.0"
   },
   "dependencies": {
+    "custom-event-polyfill": "^0.3.0",
     "es6-object-assign": "^1.1.0",
     "es6-promise-polyfill": "^1.2.0"
   }
