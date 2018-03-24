@@ -648,7 +648,8 @@ var LookForward = function () {
       this.historyLength += 1;
 
       [].forEach.call(closeBtns, function (closeBtn) {
-        closeBtn.addEventListener('click', function () {
+        closeBtn.addEventListener('click', function (e) {
+          e.preventDefault();
           if (window.history && _this4.options.useHistoryApi) {
             window.history.back();
           } else {

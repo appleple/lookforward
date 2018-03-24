@@ -153,7 +153,8 @@ export default class LookForward {
     this.historyLength += 1;
 
     [].forEach.call(closeBtns, (closeBtn) => {
-      closeBtn.addEventListener('click', () => {
+      closeBtn.addEventListener('click', (e) => {
+        e.preventDefault();
         if (window.history && this.options.useHistoryApi) {
           window.history.back();
         } else {
