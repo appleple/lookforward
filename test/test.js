@@ -16,6 +16,7 @@ describe('link clicked',() => {
   it('should fetch contents', (done) => {
     nightmare.goto(test_url)
       .click('.uc-card')
+      .wait(100)
       .evaluate(() => {
         return document.querySelector('.js-test-title').innerText;
       })
