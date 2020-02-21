@@ -29,7 +29,9 @@ const defaults = {
   transitionLeave: '',
   scrapedArea: 'body',
   useHistoryApi: true,
-  execInnerScript: false
+  execInnerScript: false,
+  footerHtml: '',
+  headerHtml: ''
 };
 
 export default class LookForward {
@@ -202,16 +204,19 @@ export default class LookForward {
     const classNames = this.options.classNames;
     const pattern = this.options.closeBtnPattern;
     const closeBtnClass = this.options.closeBtnClass;
+    const { headerHtml, footerHtml } = this.options;
     return (`
       <div class="${classNames.LookForward}" data-root data-animation id="${id}">
         <button class="${classNames.LookForwardCloseBtn} _pattern${pattern} ${closeBtnClass}"></button>
         <div class="${classNames.LookForwardBody}" data-body>
-          <div class="${classNames.LookForwardHeader}">     
+          <div class="${classNames.LookForwardHeader}">
+          ${headerHtml}
           </div>
           <div class="${classNames.LookForwardInner} _enter-${transitionEnter} _leave-${transitionLeave}">
             ${html}
           </div>
           <div class="${classNames.LookForwardFooter}">
+          ${footerHtml}
           </div>
         </div>
       </div>
